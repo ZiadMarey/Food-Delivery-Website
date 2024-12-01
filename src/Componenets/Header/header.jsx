@@ -6,18 +6,23 @@ import './header.css';
 
 
 
-function MainHeader(){
-
+function MainHeader() {
     return (
         <div className="mainHeader">
+            <img src={LogoPlaceholder} alt="Website-Logo" className="header-elements website-logo" />
+            <h2 className="header-elements header-restaurant-name website-name">Lieferspatz</h2>
             
-                <img src={LogoPlaceholder} alt='Website-Logo' className='header-elements website-logo'/>
-                <h2 className='header-elements header-restaurant-name' class='header-elements website-name' >Food Place</h2>
-                <img src={HistoryIcon} alt='Purchase History' className='header-elements header-icons'/>
-                <img src={UserIcon} alt='User Icon' className='header-elements header-icons'/>
-
+            <div className="icon-container">
+                <img src={HistoryIcon} alt="Purchase History" className="header-icons" />
+                <p className="header-elements icon-text">Order History</p>
+            </div>
+            <div className="icon-container">
+                <img src={UserIcon} alt="User Icon" className="header-icons" />
+                <p className="header-elements icon-text">Profile</p>
+            </div>
         </div>
     );
 }
+
 
 export default MainHeader;
