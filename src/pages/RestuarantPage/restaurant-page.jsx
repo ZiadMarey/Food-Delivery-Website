@@ -1,6 +1,6 @@
 import React from "react";
-import ItemsCard from "./Items/items";
-import "./restaurantPage.css";
+import ItemsCard from "./ItemComponents/items";
+import "./restaurant-page.css";
 import rest from "./assets/rest.jpg";
 
 function RestaurantPage() {

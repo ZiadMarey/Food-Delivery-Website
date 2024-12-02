@@ -1,5 +1,5 @@
 import React from 'react';
-import UserIcon from '/Users/shamzainaldin/Order/src/Header/assets/profilePlaceholder.svg'; 
+import UserIcon from './assets/profilePlaceholder.svg'; 
 
 import './profile-page.css';
 import NameCard from './Components/Name_Card.jsx';

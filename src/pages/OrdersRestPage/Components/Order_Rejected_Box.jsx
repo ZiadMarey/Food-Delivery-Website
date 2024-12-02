@@ -1,5 +1,5 @@
+import "./Orders_Rest_Box.css";
 
-import "./Order_Rest_Box.css"
 
 
 

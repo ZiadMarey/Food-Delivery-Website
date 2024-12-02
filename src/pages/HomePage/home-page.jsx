@@ -1,11 +1,11 @@
 import Card from "../../Componenets/HomePage_Card/hp-card.jsx";
-import Header from "../../Componenets/Header/header.jsx";
+
 import "./home-page.css";
 
 function HomePage() {
   return (
     <div className="home-page">
-      <Header />
+
       <p className="restArea"> Restaurants in your area</p>
       <div className="card-pool">
         <>

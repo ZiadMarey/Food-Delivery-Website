@@ -1,7 +1,7 @@
 import LogoPlaceholder from './assets/logoPlaceholder.png';
 import UserIcon from './assets/profilePlaceholder.svg';
 import HistoryIcon from './assets/shoppingPlaceholder.svg';
-import './header.css';
+import './new-header.css';
 import {Link} from 'react-router-dom';
 
 

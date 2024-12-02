@@ -1,5 +1,5 @@
-import './rest-ProfilePage.css'; 
-import UserIcon from '/Users/shamzainaldin/Order/src/Header/assets/profilePlaceholder.svg'; 
+import './rest-profile-page.css'; 
+import UserIcon from "./assets/profilePlaceholder.svg";
 
 
 function RestaurantProfilePage() {
