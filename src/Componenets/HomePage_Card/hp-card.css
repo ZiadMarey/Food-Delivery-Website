@@ -23,6 +23,7 @@
     border-radius: 0px 0px 10px 10px;
     overflow: hidden;
     font-family: Arial, sans-serif;
+
 }
 .description:hover{
     background-color:hsl(0, 0%, 90%);
@@ -31,12 +32,12 @@
 .description p {
     margin: 8px 0;
     color: #333;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .description p:first-child {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .restArea{
