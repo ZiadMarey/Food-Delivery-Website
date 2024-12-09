@@ -1,10 +1,13 @@
 import ItemCard from '../Cards/Item_Card.jsx';
 import NotesCard from '../Cards/Notes_Card.jsx';
 import TotalCard from '../Cards/Total_Card.jsx';
-
-import { Link } from 'react-router-dom';
-import {useState} from 'react';
 import './container.css'
+
+import {useContext} from "react";
+import {Link} from 'react-router-dom';
+import {useState} from 'react';
+import { UserContext } from '../../history-order-preview.jsx';
+
 
 function Container (){
     const [cards, setCards] = useState([]);
@@ -17,24 +20,28 @@ function Container (){
         setCards(cards.filter((card) => card.id !== id));
     }
 
-    const containerHeight = cards.length >2 ?  (cards.length-2) : 2;
+    const containerHeight = cards.length >2 ?  (cards.length-2) : 0;
 
+    const restaurantName = useContext(UserContext); //fetching the restaurant name only for now
     return(
         <div className='container' style= {{
-            height: `${containerHeight*16.2 + 85/*67.6*/ }vh`
+            height: `${containerHeight*16.2 + 105/*67.6*/ }vh`
         }}>
-            <ItemCard name="Cheese Burger" quantity={1}/>
-            <ItemCard />
+            <p className='order-preview-text'> Order Preview </p>
+            <p className='rest-name'> {restaurantName} </p>
+
             <ItemCard name="Cheese Burger" quantity={1}/>
             <ItemCard />
 
 
-            
+
+
             <NotesCard />
             <TotalCard />
-            
-            <Link to="/" className='cancel-button' > Cancel and Return to Main Menu</Link>
-            <button className='submit-button' >Submit Order </button>
+            <Link to ="/userorderhist" className='return-button'>
+                <p className='reutn-text'>Return</p>
+            </Link>
+
         </div>
     );
 }
