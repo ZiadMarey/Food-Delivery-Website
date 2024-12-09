@@ -1,0 +1,96 @@
+.body1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.bgimage-1{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../ComponentsLogin/r.jpg") no-repeat center center/cover;
+    filter: blur(6px);
+    z-index: -1;
+}
+
+.wrapper-r {
+    z-index: 1;
+    top: -100px;
+    text-align: center;
+    background-color: rgba(0, 96, 79, 0.8); 
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px; 
+    width: 350px;
+    height: 300px;
+    position: relative;
+}
+
+.login-box-r{
+    position: absolute;
+    top: 0px;
+    right: -100px;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: rgb(0, 96, 79);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.input-box-r{
+    position: relative;
+    margin: 20px 0;
+    width: 300px;
+    right: -15px;
+    top: 50px;
+}
+
+.input-box-r input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.input-box-r label{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color:  rgba(255, 255, 255);
+    transition: 0.3s ease;
+    pointer-events: none;
+}
+
+.input-box-r input:focus + label,
+.input-box-r input:valid + label {
+    top: -17px;
+    font-size: 12px;
+    color:  rgba(255, 255, 255);
+}
+
+.signin-button-r {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: rgb(0, 96, 79);
+    border: none;
+    padding: 10px 20px;
+    position: relative;
+    top: 90px;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+
+.signup-text-r {
+    margin-top: 20px;
+    font-size: 15px;
+    color:  rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    
+}
