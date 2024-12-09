@@ -26,7 +26,7 @@ function Container (){
             <p className="order-list-text">Order History</p>
 
             <Card />
-            <Card />
+
 
             
             
