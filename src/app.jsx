@@ -8,7 +8,8 @@ import RestaurantPage from "./pages/RestuarantPage/restaurant-page.jsx";
 import UserOrderPage from "./pages/OrdersUserPage/order-userpage.jsx";
 import RestOrderPage from "./pages/OrdersRestPage/order-restpage.jsx";
 import RestaurantProfilePage from "./pages/RestaurantProfilePage/rest-profile-page.jsx";
-import OrderPreview from "./pages/OrderPreview/order-preview.jsx";
+import UserOrderPreview from "./pages/OrderPreview/order-preview.jsx";
+import HistoryOrderPreview from "./pages/HistoryOrderPreview/history-order-preview.jsx"
 
 function App() {
   return (
@@ -24,11 +25,11 @@ function App() {
         <Route path="/restprofile" element={<RestaurantProfilePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/restaurantpage" element={<RestaurantPage />} />
-        <Route path="/userorderpreview" element={<OrderPreview />} />
-
+        <Route path="/userorderpreview" element={<UserOrderPreview />} />
+        <Route path="/historyorderpreview" element={<HistoryOrderPreview />} />
       </Routes>
     </Router>
-    
+    // <HistoryOrderPreview />
   );
 }
 

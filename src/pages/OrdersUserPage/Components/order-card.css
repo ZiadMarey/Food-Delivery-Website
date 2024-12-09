@@ -13,12 +13,12 @@
   
 
 
-  .card-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
+ .card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
   
   .card-details {
     display: flex;
