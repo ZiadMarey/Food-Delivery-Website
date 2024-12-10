@@ -18,10 +18,12 @@ function Container (){
     }
 
     const containerHeight = cards.length >2 ?  (cards.length-2) : 2;
-
+    //this line records the number of cards present above 2, because 2 is the default amount of cards in the container
+    
     return(
         <div className='container' style= {{
             height: `${containerHeight*16.2 + 85/*67.6*/ }vh`
+            //This line adjusts the height of the container according to the number of cards present in it, the default amount of cards here is 2
         }}>
             <ItemCard name="Cheese Burger" quantity={1}/>
             <ItemCard />
