@@ -7,6 +7,8 @@ import {Link} from 'react-router-dom';
 
 
 function MainHeader() {
+    console.log("MainHeader Rendered");
+    
     return (
         <div className="mainHeader">
             <img src={LogoPlaceholder} alt="Website-Logo" className="header-elements website-logo" />
