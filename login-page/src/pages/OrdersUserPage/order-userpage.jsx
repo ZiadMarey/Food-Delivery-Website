@@ -1,12 +1,12 @@
-import UserOrderCard from "./Components/order-card";
+import CardContainer from './Components/Container/Container.jsx'
+import './order-userpage.css';
 
 function OrdersUserPage(){
 
     return(
         <>
-        
-        <UserOrderCard/>
-        <UserOrderCard/>
+
+            <CardContainer />
         </>
     );
 
