@@ -6,7 +6,9 @@ function HomePage() {
   return (
     <div className="home-page">
 
-      <p className="restArea"> Restaurants in your area</p>
+
+      {/* add zipcode to display which area*/}
+      <p className="restArea"> Restaurants in your area </p>
       <div className="card-pool">
         <>
           <Card

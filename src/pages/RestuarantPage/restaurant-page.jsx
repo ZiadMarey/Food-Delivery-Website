@@ -1,16 +1,20 @@
 import React from "react";
 import ItemsCard from "./ItemComponents/items";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./restaurant-page.css";
-import rest from "./assets/rest.jpg";
+import rest from "./assets/italian.jpg";
 import HP_Card from "../../Componenets/HomePage_Card/hp-card";
 
 function RestaurantPage() {
-  
+  const navigate = useNavigate();
   const location = useLocation();
   const {restName, restDescription, openHours, closeHours} = location.state;
 
-
+  const handleProceedToOverview = () => {
+    // Pass the cart data to the OrderPreview page
+    navigate("/userorderpreview");
+  };
  
   
   return (
@@ -38,7 +42,7 @@ function RestaurantPage() {
 
       </div>
 
-      <button className="checkout-button">
+      <button className="checkout-button" onClick={handleProceedToOverview}>
         Proceed to overview
       </button>
 

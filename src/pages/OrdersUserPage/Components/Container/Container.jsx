@@ -27,7 +27,7 @@ function Container (){
 
             <Card />
 
-
+                <Card></Card>
             
             
 

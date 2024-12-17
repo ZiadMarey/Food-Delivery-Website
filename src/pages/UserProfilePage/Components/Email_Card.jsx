@@ -1,11 +1,12 @@
 import './Profile_Cards.css';
 
-function EmailCard(){
+function EmailCard({email}){
     
     
-    return(<div className="profile-box">
+    return(
+    <div className="profile-box">
     <span className="profile-label">Email</span>
-    <div className="profile-value"></div>
+    <div className="profile-value">{email}</div>
   </div>);
     
 

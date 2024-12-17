@@ -15,7 +15,7 @@ function HP_Card(props) {
 
       <div className="description">
         <p>Restaurant Name: {props.restName} </p>
-        <p>Desctiption: {props.restDescription}</p>
+        <p>Description: {props.restDescription}</p>
         <p>
           Opening Hours: {Math.floor(props.openHours / 10) == 0 ? "0" : ""}
           {props.openHours}

@@ -7,9 +7,21 @@
     margin: 15px 10px 10px 14px;
     display: inline-block;
     background-color: white;
+    text-decoration: none;
+
 }
+
+.card-link{
+
+    text-decoration: none;
+    color: inherit;
+
+}
+
+
 .container-card:hover{
     cursor: pointer;
+
 }
 
 .description {
@@ -23,6 +35,7 @@
     border-radius: 0px 0px 10px 10px;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    
 
 }
 .description:hover{
@@ -33,6 +46,7 @@
     margin: 8px 0;
     color: #333;
     font-size: 18px;
+    
 }
 
 .description p:first-child {
@@ -46,5 +60,5 @@
     font-size: 30px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-
+    
 }

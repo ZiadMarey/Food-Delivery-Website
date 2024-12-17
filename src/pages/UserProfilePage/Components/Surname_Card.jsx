@@ -1,12 +1,15 @@
 import './Profile_Cards.css';
 
-function SurnameCard(){
+function SurnameCard({surname}){
     
     
-    return(<div className="profile-box">
+    return(
+    <div className="profile-box">
     <span className="profile-label">Surname</span>
-    <div className="profile-value"></div>
-  </div>);
+    <div className="profile-value"> {surname} </div>
+  
+    </div>
+  );
     
 
 }

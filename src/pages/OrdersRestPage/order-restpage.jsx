@@ -1,15 +1,12 @@
-import RestOrderCard from "./Components/Orders_Rest_Box";
-import ConfirmCard from "./Components/Order_Confirmed_Box";
-import RejectCard from "./Components/Order_Rejected_Box";
+import RestOrderContainer from "./RestOrderContainer/r-order-container";
 
 
 function RestOrderPage(){
 
     return(
         <>
-        <RestOrderCard></RestOrderCard>
-        <ConfirmCard></ConfirmCard>
-        <RejectCard></RejectCard>
+        
+        <RestOrderContainer> </RestOrderContainer>
         
         </>
     );

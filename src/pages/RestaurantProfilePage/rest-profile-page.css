@@ -1,16 +1,37 @@
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh; 
+  
+}
 
 .profile-page-container {
     text-align: center;
     padding: 20px;
+    border-radius: 20px;
+    background-color: rgb(0, 96, 79);
+    height: 500px;
+    width: 750px;
+    
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+
+    border: 20px solid #ffc18f;
   }
+
+ 
   
   .profile-image-container {
     margin-bottom: 20px;
+    
+    
   }
   
   .profile-image {
-    width: 150px;
-    height: 150px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -25,7 +46,7 @@
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
     color : rgb(0, 96, 79);
-
+    display: contents;
   }
   
   .account-balance {
@@ -36,6 +57,7 @@
   }
   
   .buttons-container {
+    
     display: flex;
     justify-content: space-between;
     max-width: 500px;
@@ -43,8 +65,9 @@
   }
   
   .menu-button, .orders-button {
+    
     padding: 10px 20px;
-    font-size: 20px;
+    font-size: 25px;
     font-family: 'Poppins', sans-serif;
     border:rgb(0, 96, 79);
     border-radius: 10px;

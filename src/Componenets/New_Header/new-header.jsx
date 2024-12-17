@@ -10,27 +10,41 @@ function MainHeader() {
     console.log("MainHeader Rendered");
     
     return (
-        <div className="mainHeader">
-            <img src={LogoPlaceholder} alt="Website-Logo" className="header-elements website-logo" />
-            
 
-            {/*change to homepage*/}
-            <Link to="/">
-            <h2 className="header-elements header-restaurant-name website-name">Lieferspatz</h2>
+
+        <div className="mainHeader">
+
+            <div className='logo-container'>
+
+
+            <Link to="/" className = "header-elements logo-container ">
+                <img src={LogoPlaceholder} alt="Website-Logo" className="header-elements website-logo" />
+        
+                <h2 className="header-elements header-restaurant-name website-name">Lieferspatz</h2>
             </Link>
 
+            </div>
+            
+            <div className = "right-icons">
+
             <div className="icon-container">
-                <img src={HistoryIcon} alt="Purchase History" className="header-icons" />
                 <Link to ="/userorderhist" className = "header-elements">
+                <img src={HistoryIcon} alt="Purchase History" className="header-icons icon-link" />
                 <p className="header-elements icon-text">Order History</p>
                 </Link>
             </div>
+
+
             <div className="icon-container">
-                <img src={UserIcon} alt="User Icon" className="header-icons" />
                 <Link to = "/profile" className='header-elements'>
+                <img src={UserIcon} alt="User Icon" className="header-icons icon-link" />
                 <p className="header-elements icon-text">Profile</p>
                 </Link>
             </div>
+
+            </div>
+
+
         </div>
     );
 }
