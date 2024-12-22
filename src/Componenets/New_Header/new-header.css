@@ -1,3 +1,9 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
 
 .mainHeader {
   width: 100vw;
@@ -38,7 +44,7 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 .header-icons {
@@ -46,6 +52,18 @@
   height: 55px;
   margin-bottom: 0px; 
   margin-top: 10px;
+}
+
+.history-icon{
+  position: relative;
+  left: 18%;
+  top: 8%
+}
+
+.profile-icon{
+  position: relative;
+  top: 8%;
+  
 }
 
 .icon-text {
@@ -68,9 +86,9 @@
 
 
 .right-icons{
-display: flex;
-
-
+  display: flex;
+  position: relative;
+  right: 2%;
 }
 
 .header-elements {

@@ -21,18 +21,11 @@
   min-width: 90%;
   position: relative;
   display: inline;
-  margin: 1% 0 0 0;
+  margin: 1% 0 1% 0;
 }
 
 
 
-
- .card-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
   
   .card-details {
     display: flex;
@@ -68,8 +61,8 @@
   
   .status-text {
     font-weight: bold;
-    
     color: #884c26;
+
   }
   
   .view-details {

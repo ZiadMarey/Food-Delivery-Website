@@ -12,28 +12,66 @@ function HomePage() {
       <div className="card-pool">
         <>
           <Card
-            restName="Meat in a Box"
-            restDescription="Non Vegan"
+            restName="Bamboo Garden"
+            restDescription="Chinese"
             openHours={8}
             closeHours={18}
           />
           <Card 
-          restName="Kebab"
-          restDescription="Kebab"
-          openhours={10}
+          restName="Mumbai Magic"
+          restDescription="Indian"
+          openHours={10}
           closeHours={20}/>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          <Card 
+          restName="Kyoto Cuisine"
+          restDescription="Asian"
+          openHours={8}
+          closeHours={22}/>
+          <Card 
+          restName="Sunrise Cafe"
+          restDescription="Breakfast"
+          openHours={7}
+          closeHours={15}/>
+          <Card 
+          restName="Sakura Savor"
+          restDescription="Japanese"
+          openHours={9}
+          closeHours={19}/>
+          <Card 
+          restName="Taco Fiesta"
+          restDescription="Mexican"
+          openHours={10}
+          closeHours={20}/>
+          <Card 
+          restName="Sahara Sizzle"
+          restDescription="Arabic"
+          openHours={10}
+          closeHours={22}/>
+          <Card 
+          restName="Rasoi"
+          restDescription="Indian"
+          openHours={9}
+          closeHours={21}/>
+          <Card 
+          restName="Caribbean Pulse"
+          restDescription="Jamaican"
+          openHours={8}
+          closeHours={20}/>
+          <Card 
+          restName="Muffin Mania"
+          restDescription="Breakfast"
+          openHours={7}
+          closeHours={15}/>
+          <Card 
+          restName="India Gate"
+          restDescription="Indian"
+          openHours={8}
+          closeHours={19}/>
+          <Card 
+          restName="Wok and Roll"
+          restDescription="Asian"
+          openHours={9}
+          closeHours={21}/>
         </>
       </div>
     </div>

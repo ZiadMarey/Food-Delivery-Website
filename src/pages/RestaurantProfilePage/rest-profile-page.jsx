@@ -11,7 +11,7 @@ function RestaurantProfilePage() {
         </div>
             {/* for later : check if correct signed in restaurant name appeaers */}
         <div className="restaurant-details">
-          <p className="rest-name">{restName}</p>
+          <p className="rest-name">{/* {restName} this is not working*/} Restaurant Name</p>
           <p className="account-balance">Account Balance: </p>
         </div>
 

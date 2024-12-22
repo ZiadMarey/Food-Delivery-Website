@@ -13,8 +13,8 @@ function ProfilePage() {
   
 
   //make functions to pass  
-  const [name, setName] = useState("Sham");
-  const [surname, setSurname] = useState("Zen");
+  const [name, setName] = useState("Jane");
+  const [surname, setSurname] = useState("Williams");
   
   
   
@@ -41,7 +41,7 @@ function ProfilePage() {
 
          <NameCard name ={name} ></NameCard>
          <SurnameCard surname = {surname} ></SurnameCard>
-         <EmailCard email = "sh.z@gmail.com"></EmailCard>
+         <EmailCard email = "jane.will@lieferspatz.com"></EmailCard>
          <AddCard address = "Loth str."></AddCard>  
          <PostCard postcode = "40235"></PostCard>
          
