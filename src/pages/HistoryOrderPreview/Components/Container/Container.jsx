@@ -1,7 +1,7 @@
 import ItemCard from '../Cards/Item_Card.jsx';
 import NotesCard from '../Cards/Notes_Card.jsx';
 import TotalCard from '../Cards/Total_Card.jsx';
-import './container.css'
+import './history-container.css'
 
 import {useContext} from "react";
 import {Link} from 'react-router-dom';
@@ -24,16 +24,17 @@ function Container (){
     //this line records the number of cards present above 2, because 2 is the default amount of cards in the container
 
     const restaurantName = useContext(UserContext); //fetching the restaurant name only for now
+    
     return(
         <div className='container' style= {{
             height: `${containerHeight*16.2 + 105/*67.6*/ }vh`
             //This line adjusts the height of the container according to the number of cards present in it, the default amount of cards here is 2
         }}>
             <p className='order-preview-text'> Order Preview </p>
-            <p className='rest-name'> {restaurantName} </p>
+            <p className='rest-title'> {restaurantName} </p>
 
             <ItemCard name="Cheese Burger" quantity={1}/>
-            <ItemCard />
+            <ItemCard name="Sprite Soda Drink" quantity={2}/>
 
 
 

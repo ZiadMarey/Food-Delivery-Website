@@ -1,4 +1,4 @@
-import './cards.css'
+import './preview-cards.css'
 import DeleteIcon from './assets/trash-can.svg';
 import { PropTypes } from "prop-types";
 

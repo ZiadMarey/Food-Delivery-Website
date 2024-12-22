@@ -4,10 +4,11 @@
     padding: 20px;
     width: 1000px;
     justify-content: center;
-    
     border: 10px solid rgb(0, 96, 79);
     border-radius: 2%;
     margin-left: 350px;
+    position: relative;
+    left: 90px;
   }
   
   .left-section {

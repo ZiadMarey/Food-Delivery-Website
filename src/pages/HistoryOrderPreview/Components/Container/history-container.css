@@ -49,17 +49,23 @@
              0px 8px 13px rgba(0,0,0,0.1),
              0px 18px 23px rgba(0,0,0,0.1);
     position: relative;
-    right: 25%;
+    right:27.3%;
     bottom: 20px;
     margin: 0px 0px unset unset;
+    
 }
 
-.rest-name{
+.rest-title{
     color: #f1f8fe;
-    font-size: 30px;
+    font-size: 60px;
     margin: 0;
     position: absolute;
-    left: 65%;
-    top: 100px;
+    top: 61px;
+    left: 57%;
+    text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+                 10px 20px 5px rgba(0,0,0,0.05),
+                 -10px 20px 5px rgba(0,0,0,0.05);
+    
+
 }
 

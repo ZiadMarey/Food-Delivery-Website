@@ -29,16 +29,16 @@ function MainHeader() {
 
             <div className="icon-container">
                 <Link to ="/userorderhist" className = "header-elements">
-                <img src={HistoryIcon} alt="Purchase History" className="header-icons icon-link" />
-                <p className="header-elements icon-text">Order History</p>
+                    <img src={HistoryIcon} alt="Purchase History" className="header-icons history-icon" />
+                    <p className="header-elements icon-text">Order History</p>
                 </Link>
             </div>
 
 
             <div className="icon-container">
                 <Link to = "/profile" className='header-elements'>
-                <img src={UserIcon} alt="User Icon" className="header-icons icon-link" />
-                <p className="header-elements icon-text">Profile</p>
+                    <img src={UserIcon} alt="User Icon" className="header-icons profile-icon" />
+                    <p className="header-elements icon-text">Profile</p>
                 </Link>
             </div>
 

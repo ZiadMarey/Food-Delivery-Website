@@ -12,6 +12,7 @@ body{
     position: relative;
     display: inline;
     margin: 1% 0 1% 0;
+    
 }
 
 
@@ -34,18 +35,6 @@ body{
     box-sizing: border-box;
     margin: 0;
 }
-.delete-icon{
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    top: 25%;
-    left: 92%;
-    border-radius: 15px;
-}
-.delete-icon:hover{
-    cursor: pointer;
-    background-color: rgb(199, 3, 3);
-}
 
 .item-name,
 .quantity {
@@ -56,10 +45,10 @@ body{
     font-weight: bold;
 }
 .item-name{
- left: 21%;
+    left: 21%;
 }
 .quantity{
-    left: 21%;
+    left: 12.8%;
     top: 40%;
 
 }
@@ -68,7 +57,7 @@ body{
     position: absolute;
     top: 40%;
     font-size: 23px;
-    left: 62%;
+    left: 55%;
     font-weight: bold;
 }
 
