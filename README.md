@@ -28,12 +28,17 @@ This project is currently in development. The Front-end using React is 90% Compl
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
 
 Installation:
+
 `npm install`  
 and
 `npm install react-router-dom`
+
 To Start Server:
+
 `npm run dev`
+
 To Visit Website (after starting server):
+
 visit `http://localhost:5173/`
 
 ## Reflection
