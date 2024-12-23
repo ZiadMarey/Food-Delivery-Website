@@ -1,8 +1,9 @@
-import Card from "../../Componenets/HomePage_Card/hp-card.jsx";
+import Card from "./Components/HomePage_Card/hp-card.jsx";
 
 import "./home-page.css";
 
 function HomePage() {
+  
   return (
     <div className="home-page">
 
@@ -23,10 +24,10 @@ function HomePage() {
           openHours={10}
           closeHours={20}/>
           <Card 
-          restName="Kyoto Cuisine"
-          restDescription="Asian"
-          openHours={8}
-          closeHours={22}/>
+          restName="Sunflower"
+          restDescription="Vegan"
+          openHours={9}
+          closeHours={21}/>
           <Card 
           restName="Sunrise Cafe"
           restDescription="Breakfast"
@@ -48,10 +49,10 @@ function HomePage() {
           openHours={10}
           closeHours={22}/>
           <Card 
-          restName="Rasoi"
-          restDescription="Indian"
-          openHours={9}
-          closeHours={21}/>
+          restName="Kyoto Cuisine"
+          restDescription="Asian"
+          openHours={8}
+          closeHours={22}/>
           <Card 
           restName="Caribbean Pulse"
           restDescription="Jamaican"
