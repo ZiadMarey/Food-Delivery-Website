@@ -10,12 +10,14 @@ This project is currently in development. The Front-end using React is 90% Compl
 ## Project Screen Shots
 
 ### User Interface
+
+![Home Page](https://github.com/user-attachments/assets/b7526d9d-5672-467b-b945-df297e376d67)
+
 ![User Profile Page](https://github.com/user-attachments/assets/a57e62bf-05e2-4c4e-85dd-2b2ebb9168f5)
 
-![User Order History](https://github.com/user-attachments/assets/2d907b02-b9d9-483e-a9bd-a25744e9144d)
+![Individual Order](https://github.com/user-attachments/assets/232f3909-127c-40bf-a273-c85bd598839c)
 
-![Home Page](https://github.com/user-attachments/assets/13262c91-e3a7-4334-a889-d60a41e51788)
-
+<br/>
 
 ### Restaurant Interface
 
