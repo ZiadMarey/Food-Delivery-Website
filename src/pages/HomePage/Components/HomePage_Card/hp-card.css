@@ -26,7 +26,6 @@
 
 .description {
     position: relative;
-    top:55%;
     padding-left: 5px;
     box-sizing: border-box;
     height: 45%;
@@ -35,8 +34,7 @@
     border-radius: 0px 0px 10px 10px;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    
-
+    margin: 0;
 }
 .description:hover{
     background-color:hsl(0, 0%, 90%);
@@ -60,5 +58,24 @@
     font-size: 30px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+.image-section{
+    position: relative;
+    top: 0%;
+    height: 55%;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin: 0;
+    border-radius: 10px 10px 0 0;
+    
+}
+
+.items-image{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
     
 }

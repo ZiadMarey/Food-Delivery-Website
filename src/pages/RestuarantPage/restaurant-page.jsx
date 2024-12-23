@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./restaurant-page.css";
 import rest from "./assets/italian.jpg";
-import HP_Card from "../../Componenets/HomePage_Card/hp-card";
+
 
 function RestaurantPage() {
   const navigate = useNavigate();
