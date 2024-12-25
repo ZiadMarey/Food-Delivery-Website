@@ -12,6 +12,8 @@
     max-width: 600px;
     background-color: #fff;
     position: relative; 
+    flex-direction: row;
+    height: auto;
 
     
   }
@@ -31,12 +33,14 @@
   }
   
   .foodPic {
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
     border-radius: 8px;
-    margin-right: 75px;
-    margin-left: 20px;
+    margin-right: 80px;
+    margin-left: 5px;
     object-fit: cover;
+
+
   }
   
   .card-det {
@@ -53,7 +57,7 @@
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     color: #00604F;
-    margin-bottom: 80px;
+    margin-bottom: 10px;
   }
   .item-price{
     position: relative;
@@ -70,10 +74,10 @@
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 15px;
-    margin-left: 10px;
+    margin-left: 15px;
     padding-left: 90px;
     font-family: 'Poppins', sans-serif;
-    margin-right: 19px;
+    margin-right: 15px;
  
   }
   
@@ -115,7 +119,8 @@
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    width: 75%;
+    width: 55%;
+    align-self: center;
 
   }
   
