@@ -3,7 +3,7 @@ import './login-customer.css';
 
 
 
-export const logincustomer = () => {
+export const LoginCustomer = () => {
   return (
     <div className="body1">
       
@@ -21,7 +21,7 @@ export const logincustomer = () => {
           </div>
           <button type="submit" className="signin-button-c">Sign In</button>
           <div className="signup-text-c">
-            Don't have an account? <a href="/customersignup">Sign Up</a>
+            Don't have an account? <a href="/signupcus">Sign Up</a>
           </div>
         </form>
 
@@ -31,4 +31,4 @@ export const logincustomer = () => {
 
   );
 };
-export default logincustomer;
+export default LoginCustomer;

@@ -1,8 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './signup-customer.css';
   
 {/*changed it into a function*/}
 function SignupCustomer () {
+
+    const [password, setPassword] = useState('');
+    const [confirmpassword, setConfirmPassword] = useState('');
+    const [errormsg, setErrorMsg] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+        if (password !== confirmpassword) {setErrorMsg('Passwords do not match!');} 
+        else {
+          setErrorMsg(''); 
+          console.log('Form submitted successfully');
+          e.target.submit(); 
+        }
+      };
+
     return (
         <div className="body">
     
@@ -10,8 +25,8 @@ function SignupCustomer () {
             <div className="wrapper">
             <div className="formbox-signup">
             <h2>Create an account</h2>
-            <p className="signin-text">Already have an account? <a href="customerlogin">Sign in</a></p>
-            <form action="#">
+            <p className="signin-text">Already have an account? <a href="/logincus">Sign in</a></p>
+            <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <div className="input-box half-width">
                         <input type="text" required />
@@ -38,15 +53,16 @@ function SignupCustomer () {
                 </div>
                 <div className="input-group">
                     <div className="input-box half-width">
-                        <input type="password" id="pass1" required />
+                        <input type="password" id="pass1" value={password} onChange={(e) => setPassword(e.target.value)} required />
                         <label>Create password</label>
                     </div>
                     <div className="input-box half-width">
-                        <input type="password" id="pass2" required />
+                        <input type="password" id="pass2" value={confirmpassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
                         <label>Confirm password</label>
                     </div>
                     
                 </div>
+                {errormsg && <p className="error-message">{errormsg}</p>}
                 <button type="submit" className="signup-button" >Sign up</button>
                 </form>
                 

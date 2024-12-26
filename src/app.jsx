@@ -12,6 +12,8 @@ import UserOrderPreview from "./pages/OrderPreview/order-preview.jsx";
 import HistoryOrderPreview from "./pages/HistoryOrderPreview/history-order-preview.jsx"
 import SignupRestaurant from "./pages/SignupForms/signup-restaurant.jsx";
 import SignupCustomer from "./pages/SignupForms/signup-customer.jsx";
+import LoginRestaurant from "./pages/LoginForms/LoginRestaurant/login-restaurant.jsx";
+import LoginCustomer from "./pages/LoginForms/LoginCustomer/login-customer.jsx";
 
 import StartPage from "./pages/Start/start.jsx";
 
@@ -43,6 +45,9 @@ function App() {
         
         <Route path="/signupres" element={<SignupRestaurant/>}></Route>
         <Route path="/signupcus" element={<SignupCustomer/>}></Route>
+        {/* Routed login pages */}
+        <Route path="/loginres" element={<LoginRestaurant/>}></Route>
+        <Route path="/logincus" element={<LoginCustomer/>}></Route>
 
 
 

@@ -1,10 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './signup-restaurant.css';
   
 {/*changed it into a function*/}
 function SignupRestaurant () {
     console.log("SignupRestaurant Component Rendered");
+    const [password, setPassword] = useState('');
+    const [confirmpassword, setConfirmPassword] = useState('');
+    const [errormsg, setErrorMsg] = useState('');
 
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+        if (password !== confirmpassword) {setErrorMsg('Passwords do not match.');} 
+        else {
+          setErrorMsg(''); 
+          console.log('Form submitted successfully');
+          e.target.submit(); 
+        }
+      };
 
     return (
 
@@ -16,8 +28,8 @@ function SignupRestaurant () {
             <div className="wrapper-sr">
             <div className="formbox-signup">
             <h2>Create an account</h2>
-            <p className="signin-text-sr">Already have an account? <a href="restaurantlogin">Sign in</a></p>
-            <form action="#">
+            <p className="signin-text-sr">Already have an account? <a href="/loginres">Sign in</a></p>
+            <form onSubmit={handleSubmit}>
                 <div className="input-group-sr">
                     <div className="input-box full-width">
                         <input type="text" required />
@@ -41,15 +53,16 @@ function SignupRestaurant () {
                 </div>
                 <div className="input-group-sr">
                     <div classNames="input-box half-width">
-                        <input type="password" id="pass1" required />
+                        <input type="password" id="pass1" value={password} onChange={(e) => setPassword(e.target.value)} required />
                         <label>Create password</label>
                     </div>
                     <div className="input-box half-width">
-                        <input type="password" id="pass2" required />
+                        <input type="password" id="pass2" value={confirmpassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
                         <label>Confirm password</label>
                     </div>
                     
                 </div>
+                {errormsg && <p className="error-message-res">{errormsg}</p>}
                 <button type="submit" className="signup-button" >Sign up</button>
                 </form>
                 

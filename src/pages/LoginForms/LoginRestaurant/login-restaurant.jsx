@@ -3,7 +3,7 @@ import './login-restaurant.css';
 
 
 
-export const loginrestaurant = () => {
+export const LoginRestaurant = () => {
   return (
     <div className="body1">
       
@@ -21,7 +21,7 @@ export const loginrestaurant = () => {
           </div>
           <button type="submit" className="signin-button-r">Sign In</button>
           <div className="signup-text-r">
-            Don't have an account? <a href="/restaurantsignup">Sign Up</a>
+            Don't have an account? <a href="/signupres">Sign Up</a>
           </div>
         </form>
 
@@ -31,4 +31,4 @@ export const loginrestaurant = () => {
 
   );
 };
-export default loginrestaurant;
+export default LoginRestaurant;
