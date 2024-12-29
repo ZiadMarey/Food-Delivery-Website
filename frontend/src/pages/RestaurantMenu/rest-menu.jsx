@@ -1,14 +1,22 @@
 import MenuItem from "./Components/menu-item"
-import MainHeader from "../../Header/header"
-function RestMenu() {
+import "./rest-menu.css"
+
+function RestMenu({menu}) {
     return(
 
             <div class="Menu Container">
-                <h1>Restaurant Menu</h1>
+                <div className="header-container">
+                    <h1>Restaurant Menu</h1>
+                    <button className="new-item-button">Add New</button>
+                </div>
+
                 <div>
-                    <MenuItem />
-                    <MenuItem />
-                    <MenuItem />
+                    {menu.map((food) => (
+                        <MenuItem key={food.id}
+                        foodName={food.food_name}
+                        foodPrice={food.food_price}
+                        />
+                        ))}
                 </div>
             </div>    
     )
