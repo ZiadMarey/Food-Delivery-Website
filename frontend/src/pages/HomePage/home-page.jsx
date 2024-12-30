@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import Card from "./Components/HomePage_Card/hp-card.jsx";
+=======
+import Card from "../../Componenets/HomePage_Card/hp-card.jsx";
+>>>>>>> 802fafa46075c57c80248b1ed9b905e230ac6906
 
 import "./home-page.css";
 
 function HomePage() {
+<<<<<<< HEAD
   
+=======
+>>>>>>> 802fafa46075c57c80248b1ed9b905e230ac6906
   return (
     <div className="home-page">
 
@@ -13,12 +20,18 @@ function HomePage() {
       <div className="card-pool">
         <>
           <Card
+<<<<<<< HEAD
             restName="Bamboo Garden"
             restDescription="Chinese"
+=======
+            restName="Meat in a Box"
+            restDescription="Non Vegan"
+>>>>>>> 802fafa46075c57c80248b1ed9b905e230ac6906
             openHours={8}
             closeHours={18}
           />
           <Card 
+<<<<<<< HEAD
           restName="Mumbai Magic"
           restDescription="Indian"
           openHours={10}
@@ -73,6 +86,24 @@ function HomePage() {
           restDescription="Asian"
           openHours={9}
           closeHours={21}/>
+=======
+          restName="Kebab"
+          restDescription="Kebab"
+          openhours={10}
+          closeHours={20}/>
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+>>>>>>> 802fafa46075c57c80248b1ed9b905e230ac6906
         </>
       </div>
     </div>

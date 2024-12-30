@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import './preview-cards.css';
+=======
+import './history-cards.css';
+>>>>>>> 802fafa46075c57c80248b1ed9b905e230ac6906
 import { PropTypes } from "prop-types";
 
 function TotalCard(props){

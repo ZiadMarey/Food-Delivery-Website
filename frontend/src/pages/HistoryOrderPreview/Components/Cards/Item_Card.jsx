@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import './history-cards.css';
+=======
+import './preview-cards.css'
+>>>>>>> 802fafa46075c57c80248b1ed9b905e230ac6906
 import DeleteIcon from './assets/trash-can.svg';
 import { PropTypes } from "prop-types";
 
@@ -15,7 +19,11 @@ function Card(props){
 
             <p className='item-price card-items'> Item Price: {props.price}€</p>
 
+<<<<<<< HEAD
 
+=======
+            <img src={DeleteIcon} alt='delete' className='delete-icon'/>
+>>>>>>> 802fafa46075c57c80248b1ed9b905e230ac6906
             
         </div>
     );

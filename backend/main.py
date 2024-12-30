@@ -11,7 +11,6 @@ def get_menu():
 
 @app.route("/add_food", methods= ["POST"])
 def add_food():
-    print("request to add food")
     food_name = request.json.get("foodName")
     food_price = request.json.get("foodPrice")
 

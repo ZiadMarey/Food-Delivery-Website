@@ -1,5 +1,4 @@
-import React from "react";
-import  { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from './Pages/HomePage/home-page.jsx'
@@ -13,15 +12,12 @@ import UserOrderPreview from "./pages/OrderPreview/order-preview.jsx";
 import HistoryOrderPreview from "./pages/HistoryOrderPreview/history-order-preview.jsx"
 import SignupRestaurant from "./pages/SignupForms/signup-restaurant.jsx";
 import SignupCustomer from "./pages/SignupForms/signup-customer.jsx";
-import LoginRestaurant from "./pages/LoginForms/LoginRestaurant/login-restaurant.jsx";
-import LoginCustomer from "./pages/LoginForms/LoginCustomer/login-customer.jsx";
-
-import RestaurantMenu from "./pages/RestaurantMenu/rest-menu.jsx";
-
 import AddToMenu from "./pages/AddToMenu/add-to-menu.jsx";
+import RestaurantMenu from "./pages/RestaurantMenu/rest-menu.jsx"
+import StartPage from "./pages/Start/start.jsx";
 
 function App() {
- 
+
   const [menu, setMenu] = useState([])
 
   useEffect(() => {
@@ -34,50 +30,43 @@ function App() {
     setMenu(data.menu)
     console.log(data.menu)
   }
-
-
-
-
+ 
   console.log('App rendered');
   return (
-    <Router>
-      {/* Main Header outside of Routes so it shows on all pages */}
-      <MainHeader />
-      
+  
+    //<AddToMenu/>
+    <RestaurantMenu menu={menu}/>
+    
+    //<Router>
+      //{/* Main Header outside of Routes so it shows on all pages */}
+      //<MainHeader />
+
+      //<Routes>
 
 
-      <Routes>
 
-
-
-      
-        <Route path="/" element={<HomePage/>} />
         
-        <Route path="/restMenu" element={<AddToMenu />} />
-
-        <Route path="Menu" element= {<RestaurantMenu menu={menu}/>}></Route>
-
-        <Route path="/userorderhist" element={<UserOrderPage />} />
-        <Route path="/restorders" element={<RestOrderPage />} />
-        <Route path="/restprofile" element={<RestaurantProfilePage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        {/* changed path to accept dynamic parameter*/}
-        <Route path="/restaurant/:restName" element={<RestaurantPage />} />
-        <Route path="/userorderpreview" element={<UserOrderPreview />} />
-        <Route path="/historyorderpreview" element={<HistoryOrderPreview />} />
+        //<Route path="/" element={<HomePage/>} />
         
         
-        <Route path="/signupres" element={<SignupRestaurant/>}></Route>
-        <Route path="/signupcus" element={<SignupCustomer/>}></Route>
-        {/* Routed login pages */}
-        <Route path="/loginres" element={<LoginRestaurant/>}></Route>
-        <Route path="/logincus" element={<LoginCustomer/>}></Route>
+        //<Route path="/userorderhist" element={<UserOrderPage />} />
+        //<Route path="/restorders" element={<RestOrderPage />} />
+        //<Route path="/restprofile" element={<RestaurantProfilePage />} />
+        //<Route path="/profile" element={<ProfilePage />} />
+        //{/* changed path to accept dynamic parameter*/}
+        //<Route path="/restaurant/:restName" element={<RestaurantPage />} />
+        //<Route path="/userorderpreview" element={<UserOrderPreview />} />
+        //<Route path="/historyorderpreview" element={<HistoryOrderPreview />} />
+        
+        
+        //<Route path="/signupres" element={<SignupRestaurant/>}></Route>
+        //<Route path="/signupcus" element={<SignupCustomer/>}></Route>
 
 
 
-      </Routes>
-    </Router>
-
+      //</Routes>
+    //</Router>
+    // <HistoryOrderPreview />
   );
 }
 

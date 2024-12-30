@@ -11,4 +11,3 @@ class Food(db.Model):
             "food_name": self.food_name,
             "food_price": self.food_price
         }
-
