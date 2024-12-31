@@ -1,5 +1,5 @@
 import React from "react";
-import ItemsCard from "./ItemComponents/Items";
+import ItemsCard from "./ItemComponents/items.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./restaurant-page.css";
 import rest from "./assets/italian.jpg";
@@ -22,6 +22,8 @@ function RestaurantPage() {
   const handleProceedToOverview = () => {
     navigate("/userorderpreview");
   };
+
+  
 
   const getRestaurantImage = () => {
     switch (restDescription) {

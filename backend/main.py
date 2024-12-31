@@ -1,6 +1,8 @@
 from flask import request, jsonify
 from config import app, db
 from models import Food
+from models import Cart
+
 
 @app.route("/menu", methods = ["GET"])
 def get_menu():
@@ -55,7 +57,44 @@ def delete_food(food_id):
 
     return jsonify({"message": "Food deleted!"}), 200
 
+# ADDING ITEMS TO CARD CODE
 
+@app.route("/add_food_to_cart", methods=["POST"])
+def add_food_to_cart():
+    food_name = request.json.get("foodName")
+    food_price = request.json.get("foodPrice")
+    quantity = request.json.get("quantity")
+
+    if not food_name or not food_price or not quantity:
+        return jsonify({"message": "You must include name, price, and quantity"}), 400
+
+    # adding item to cart
+    new_cart_item = Cart(food_name=food_name, food_price=food_price, quantity=quantity)
+    try:
+        db.session.add(new_cart_item)
+        db.session.commit()
+    except Exception as e:
+        return jsonify({"message": str(e)}), 400
+
+    return jsonify({"message ": "Item added to cart"}), 201
+
+
+@app.route("/get_cart_items", methods=["GET"])
+def get_cart_items():
+    cart_items = Cart.query.all()  # get all cart items
+    json_cart_items = list(map(lambda x: x.to_json(), cart_items))  # converting each cart item to JSON objec
+    return jsonify({"cart_items": json_cart_items})
+
+
+#reseting the cart after redirecting from the order preview page 
+@app.route("/reset_cart", methods=["POST"])
+def reset_cart():
+    try:
+        Cart.query.delete()  
+        db.session.commit()
+        return jsonify({"message": "Cart reset successfully"}), 200
+    except Exception as e:
+        return jsonify({"message": f"Error resetting cart: {str(e)}"}), 500
 
 if __name__ == "__main__":
     with app.app_context():

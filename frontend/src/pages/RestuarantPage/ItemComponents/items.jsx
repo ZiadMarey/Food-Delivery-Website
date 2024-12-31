@@ -85,6 +85,35 @@ function ItemsCard(props) {
 
   }
 
+
+  
+  const addToCart = () => {
+    if (quantity > 0) {
+      const cartItem = {
+        foodName: itemName,
+        foodPrice: price,
+        quantity: quantity,
+      };
+
+      fetch("http://127.0.0.1:5000/add_food_to_cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartItem),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Item added to cart:", data);
+          // Optionally, update state here for local cart management
+        })
+        .catch((error) => {
+          console.error("Error adding item to cart:", error);
+        });
+    } else {
+      alert("Please select a quantity greater than 0.");
+    }
+  };
   
   const getItemImage = () => {
     switch (itemType) {
@@ -232,7 +261,7 @@ function ItemsCard(props) {
                 <button className="control-button" onClick={increaseQuant}>+</button>
               </div>
             </div>
-            <button className="add-to-cart">Add to cart</button>
+            <button className="add-to-cart" onClick={addToCart}>Add to cart</button>
           </div>
         </div>
       </div>

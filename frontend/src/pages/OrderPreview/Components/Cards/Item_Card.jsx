@@ -3,6 +3,9 @@ import DeleteIcon from './assets/trash-can.svg';
 import { PropTypes } from "prop-types";
 
 function Card(props){
+
+    console.log("ItemCard Props:", props);
+
     return (
         <div className='card'>
             
@@ -15,13 +18,15 @@ function Card(props){
 
             <p className='item-price card-items'> Item Price: {props.price}€</p>
 
-            <img src={DeleteIcon} alt='delete' className='delete-icon'/>
+            {/*removing a card still doesnt work*/ }
+            <img src={DeleteIcon} alt='delete' className='delete-icon' onClick={() => removeCard(props.id)}/>
             
         </div>
     );
 } 
 
 Card.propTypes = {
+    id: PropTypes.number.isRequired,
     name: PropTypes.string ,
     quantity: PropTypes.number,
     price: PropTypes.number,
