@@ -1,4 +1,4 @@
-//import './preview-cards.css';
+import './history-cards.css';
 import { PropTypes } from "prop-types";
 
 function NotesCard(props){

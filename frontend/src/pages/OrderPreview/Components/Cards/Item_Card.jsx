@@ -1,4 +1,4 @@
-import './history-cards.css';
+import './preview-cards.css'
 import DeleteIcon from './assets/trash-can.svg';
 import { PropTypes } from "prop-types";
 
@@ -15,6 +15,7 @@ function Card(props){
 
             <p className='item-price card-items'> Item Price: {props.price}€</p>
 
+            <img src={DeleteIcon} alt='delete' className='delete-icon'/>
             
         </div>
     );
@@ -27,5 +28,3 @@ Card.propTypes = {
 };
 
 export default Card;
-
-

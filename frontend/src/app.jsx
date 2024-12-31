@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from './Pages/HomePage/home-page.jsx'
@@ -13,7 +13,8 @@ import HistoryOrderPreview from "./pages/HistoryOrderPreview/history-order-previ
 import SignupRestaurant from "./pages/SignupForms/signup-restaurant.jsx";
 import SignupCustomer from "./pages/SignupForms/signup-customer.jsx";
 import AddToMenu from "./pages/AddToMenu/add-to-menu.jsx";
-import RestaurantMenu from "./pages/RestaurantMenu/rest-menu.jsx"
+import RestaurantMenu from "./pages/RestaurantMenu/rest-menu.jsx";
+
 import StartPage from "./pages/Start/start.jsx";
 
 function App() {
@@ -33,12 +34,12 @@ function App() {
  
   console.log('App rendered');
   return (
-  
-    //<AddToMenu/>
-    <RestaurantMenu menu={menu}/>
     
-    //<Router>
-      //{/* Main Header outside of Routes so it shows on all pages */}
+    <AddToMenu/>
+    //<RestaurantMenu menu={menu}/>
+
+    //7<Router>
+      /* Main Header outside of Routes so it shows on all pages */
       //<MainHeader />
 
       //<Routes>
@@ -53,7 +54,7 @@ function App() {
         //<Route path="/restorders" element={<RestOrderPage />} />
         //<Route path="/restprofile" element={<RestaurantProfilePage />} />
         //<Route path="/profile" element={<ProfilePage />} />
-        //{/* changed path to accept dynamic parameter*/}
+        /* changed path to accept dynamic parameter*/
         //<Route path="/restaurant/:restName" element={<RestaurantPage />} />
         //<Route path="/userorderpreview" element={<UserOrderPreview />} />
         //<Route path="/historyorderpreview" element={<HistoryOrderPreview />} />
@@ -66,7 +67,7 @@ function App() {
 
       //</Routes>
     //</Router>
-    // <HistoryOrderPreview />
+
   );
 }
 
