@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import redirect, request, jsonify
 from config import app, db
 from models import Food
 from models import User
@@ -68,11 +68,11 @@ def register_user():
     post_code = data.get("post_code")
     password = data.get("password")
 
-    # Validating fields
+    
     if not first_name or not last_name or not email or not password:
         return jsonify({"error": "Required fields are missing"}), 400
 
-    # Checking if the email already exists
+    
     if User.query.filter_by(email=email).first():
         return jsonify({"error": "User with this email already exists"}), 400
 
@@ -81,7 +81,8 @@ def register_user():
     try:
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"message": "Registration Successful"}), 201
+        return redirect('/userorderhist')
+    
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
