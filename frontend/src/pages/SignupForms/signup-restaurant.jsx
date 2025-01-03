@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import './signup-restaurant.css';
+import {useNavigate} from "react-router-dom";
   
-{/*changed it into a function*/}
+{/*checks if passwords match*/}
 function SignupRestaurant () {
     console.log("SignupRestaurant Component Rendered");
     const [password, setPassword] = useState('');
     const [confirmpassword, setConfirmPassword] = useState('');
     const [errormsg, setErrorMsg] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault(); 
@@ -15,6 +17,8 @@ function SignupRestaurant () {
           setErrorMsg(''); 
           console.log('Form submitted successfully');
           e.target.submit(); 
+
+          navigate("/");
         }
       };
 

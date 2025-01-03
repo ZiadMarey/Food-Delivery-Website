@@ -1,20 +1,23 @@
 import React, {useState} from 'react'
 import './signup-customer.css';
-  
-{/*changed it into a function*/}
+import { useNavigate, Link } from "react-router-dom";
+
+{/*checks if passwords match*/}
 function SignupCustomer () {
 
     const [password, setPassword] = useState('');
     const [confirmpassword, setConfirmPassword] = useState('');
     const [errormsg, setErrorMsg] = useState('');
-
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault(); 
         if (password !== confirmpassword) {setErrorMsg('Passwords do not match!');} 
         else {
           setErrorMsg(''); 
           console.log('Form submitted successfully');
+          
           e.target.submit(); 
+          navigate("/");
         }
       };
 
@@ -25,7 +28,7 @@ function SignupCustomer () {
             <div className="wrapper">
             <div className="formbox-signup">
             <h2>Create an account</h2>
-            <p className="signin-text">Already have an account? <a href="/logincus">Sign in</a></p>
+            <p className="signin-text">Already have an account? <Link to="/logincus">Sign in</Link> </p>
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <div className="input-box half-width">
