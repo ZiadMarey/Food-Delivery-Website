@@ -2,12 +2,14 @@ import Card from '../Cards/Item_Card.jsx';
 import NotesCard from '../Cards/Notes_Card.jsx';
 import TotalCard from '../Cards/Total_Card.jsx';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import './preview-container.css'
 
 function Container (){
     const [cards, setCards] = useState([]);
+
+    const {restaurantname, Status, date} = props;
 
     const addCard = () => {
         setCards([...cards, {id: cards.length + 1}])
@@ -20,6 +22,8 @@ function Container (){
     const containerHeight = cards.length >1 ?  (cards.length-1) : 1;
     //this line records the number of cards present above 1, because 1 is the default amount of cards in the container
     
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -51,6 +55,28 @@ function Container (){
     }, []); 
 
 
+    const handleSubmitOrder = () => {
+        const Order = {
+            restaurant_name : restaurantname,
+            status : Status,
+            date_ordered : date,
+
+        };
+
+      fetch("http://127.0.0.1:5000/submit_order", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Order),
+      })
+          .then((response) => response.json())
+          .then((data) => {
+              console.log(data.message);
+              navigate("/userorderhist");
+          })
+          .catch((error) => console.error("Error submitting order:", error));
+   };
 
 
 
@@ -63,6 +89,7 @@ function Container (){
             <p className='orderPreview-text'> Order Preview </p>
             
             {cards.map((card) => (
+
             <Card
             key={card.id}
             id={card.id}
@@ -77,7 +104,7 @@ function Container (){
             <TotalCard></TotalCard>
             
             <Link to="/" className='cancel-button' > Cancel and Return to Main Menu</Link>
-            <button className='submit-button' >Submit Order </button>
+            <button className='submit-button' onClick={handleSubmitOrder} >Submit Order </button>
         </div>
     );
 }

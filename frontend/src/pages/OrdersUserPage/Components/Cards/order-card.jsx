@@ -10,8 +10,8 @@ function UserOrderCard(props){
       <div className="card-container">
             <div className="card-content">
               <div className="card-details">
-                <p className="restaurants-name">Restaurant name</p>
-                <p className="date-ordered">Date ordered</p>
+                <p className="restaurants-name">{props.restaurantName}</p>
+                <p className="date-ordered">{props.dateOrdered}</p>
 
                 <Link to="/historyorderpreview" className="view-details" state={{ restName: "McDonalds" }}> View order details</Link>
 
@@ -29,6 +29,8 @@ function UserOrderCard(props){
 }
 UserOrderCard.propTypes = {
   status: PropTypes.string,
+  restaurantName : PropTypes.string,
+  dateOrdered : PropTypes.string
 }
 
 export default UserOrderCard;

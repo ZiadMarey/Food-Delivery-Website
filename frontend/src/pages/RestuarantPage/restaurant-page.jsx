@@ -95,11 +95,6 @@ function RestaurantPage() {
       </div>
 
 
-
-
-
-
-
       <button className="checkout-button" onClick={handleProceedToOverview}>
         Proceed to overview
       </button>

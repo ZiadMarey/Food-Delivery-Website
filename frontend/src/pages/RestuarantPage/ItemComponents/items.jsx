@@ -105,7 +105,7 @@ function ItemsCard(props) {
         .then((response) => response.json())
         .then((data) => {
           console.log("Item added to cart:", data);
-          // Optionally, update state here for local cart management
+          
         })
         .catch((error) => {
           console.error("Error adding item to cart:", error);
