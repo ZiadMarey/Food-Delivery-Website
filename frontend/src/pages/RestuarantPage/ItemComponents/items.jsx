@@ -69,7 +69,7 @@ import VeganBurger from "./ItemImages/Vegan/Veganburger.png";
 
 function ItemsCard(props) {
 
-  const {itemName, price, itemType} = props;
+  const {itemName, price, itemType, restaurantName} = props;
 
   const [quantity, setQuantity] = useState(0);
 
@@ -93,6 +93,7 @@ function ItemsCard(props) {
         foodName: itemName,
         foodPrice: price,
         quantity: quantity,
+        restaurantName: restaurantName
       };
 
       fetch("http://127.0.0.1:5000/add_food_to_cart", {
