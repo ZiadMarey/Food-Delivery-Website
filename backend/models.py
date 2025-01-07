@@ -1,33 +1,154 @@
 from config import db
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
+
+# Base User Model
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    user_type = db.Column(db.Enum('restaurant', 'customer'), nullable=False)  # User Type Enum
+    restaurant = db.relationship('Restaurant', backref='user', uselist=False)
+    customer = db.relationship('Customer', backref='user', uselist=False)
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "accountBalance": self.account_balance,
+            "userType": self.user_type,
+        }
+
+
+# Customer Model
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    first_name = db.Column(db.String(80), nullable=False)
+    last_name = db.Column(db.String(80), nullable=False)
+    account_balance = db.Column(db.Float, nullable=False, default=100)
+    address = db.Column(db.String(255), nullable=True)
+    postal_code = db.Column(db.Integer, nullable=True)
+
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "firstName": self.first_name,
+            "lastName": self.last_name,
+            "address": self.address,
+            "postalCode": self.postal_code,
+            "accountBalance": self.account_balance,
+        }
+
+
+# Restaurant Model
+class Restaurant(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    restaurant_name = db.Column(db.String(80), unique=True, nullable=False)
+    address = db.Column(db.String(120), nullable=False)
+    postal_code = db.Column(db.Integer, nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    account_balance = db.Column(db.Float, nullable=False, default=0)
+    opening_hours = db.relationship('OpeningHours', backref='restaurant', lazy=True)
+    delivery_areas = db.relationship('DeliveryArea', backref='restaurant', lazy=True)
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "restaurantName": self.restaurant_name,
+            "address": self.address,
+            "description": self.description,
+            "accountBalance": self.account_balance,
+        }
+
+
+# Menu Table
 class Food(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     food_name = db.Column(db.String(32), unique = False, nullable = False)
+    food_description = db.Column(db.Text, nullable=True)
     food_price = db.Column(db.String(8), unique = False, nullable = False)
+    image = db.Column(db.String(255), nullable=True)  # Optional image path
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=True)#fix
+    restaurant = db.relationship('Restaurant', backref=db.backref('foods', lazy=True))
 
     def to_json(self):
-        return{
+        return {
             "id": self.id,
-            "food_name": self.food_name,
-            "food_price": self.food_price
+            "foodName": self.food_name,
+            "foodPrice": self.food_price,
+            #fix
         }
 
-class User(db.Model):
-    userid = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    address = db.Column(db.String(200), nullable=True)
-    post_code = db.Column(db.String(20), nullable=True)
-    password = db.Column(db.String(100), nullable=False)
+# Opening Hours Table
+class OpeningHours(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    day_of_week = db.Column(db.String(20), nullable=True)
+    opening_time = db.Column(db.Time, nullable=False)
+    closing_time = db.Column(db.Time, nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
 
     def to_json(self):
-        return{
-            "userid": self.userid,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "email": self.email,
-            "address": self.address,
-            "post_code": self.post_code,
-            "password": self.password
+        return {
+            "id": self.id,
+            "dayOfWeek": self.day_of_week,
+            "openingTime": self.opening_time,
+            "closingTime": self.closing_time,
+            "restaurantId": self.restaurant_id
+        }
+
+# Delivery Area Table
+class DeliveryArea(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    postal_code = db.Column(db.String(20), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "postalCode": self.postal_code,
+            "restaurantId": self.restaurant_id
+        }
+
+# Order Table
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customer_name = db.Column(db.String(100), nullable=False)
+    customer_address = db.Column(db.String(255), nullable=False)
+    total_price = db.Column(db.Float, nullable=False)
+    status = db.Column(db.Enum('pending', 'confirmed', 'declined', 'completed'), nullable=False, default='pending')
+    created_at = db.Column(db.DateTime, nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
+    restaurant = db.relationship('Restaurant', backref=db.backref('orders', lazy=True))
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "customerName": self.customer_name,
+            "customerAddress": self.customer_address,
+            "totalPrice": self.total_price,
+            "status": self.status,
+            "createdAt": self.created_at,
+            "restaurantId": self.restaurant_id
+        }
+    
+# OrderItem Table
+class OrderItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer, nullable=False)
+    price_at_order = db.Column(db.Float, nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
+    order = db.relationship('Order', backref=db.backref('order_foods', lazy=True))
+    food_id = db.Column(db.Integer, db.ForeignKey('food.id'), nullable=False)
+    food = db.relationship('Food', backref=db.backref('order_foods', lazy=True))
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "quantity": self.quantity,
+            "priceAtOrder": self.price_at_order,
+            "orderId": self.order_id,
+            "foodId": self.food_id
         }

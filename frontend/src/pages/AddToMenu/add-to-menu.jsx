@@ -1,10 +1,12 @@
 import './add-to-menu.css'
 import {useState} from 'react'
 
-function AddToMenu() {
+function AddToMenu({ existingFood = {}, updateCallback }) {
 
     const [foodName, setFoodName] = useState("")
     const [foodPrice, setFoodPrice] = useState("")
+
+    const updating = Object.entries(existingFood).length !== 0
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -14,9 +16,9 @@ function AddToMenu() {
             foodPrice
         }
 
-        const url = "http://127.0.0.1:5000/add_food"
+        const url = "http://127.0.0.1:5000/" + (updating ? `update_food/${existingFood.id}` : "add_food")
         const options = {
-            method: "POST",
+            method: updating ? "PATCH" : "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -28,7 +30,7 @@ function AddToMenu() {
             const message = await response.json()
             alert(message.message)
         }else {
-            //successful 
+            updateCallback()
         }
     }
 

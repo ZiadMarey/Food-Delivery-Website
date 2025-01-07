@@ -23,9 +23,6 @@ function SignupRestaurant () {
       };
 
     return (
-
-
-
         <div className="body">
     
             <div className="bgimage-sr"></div>
