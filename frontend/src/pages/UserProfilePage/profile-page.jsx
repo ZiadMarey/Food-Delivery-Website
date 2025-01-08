@@ -8,6 +8,7 @@ import PostCard from './Components/Post_Card.jsx';
 import SurnameCard from './Components/Surname_Card.jsx';
 import EmailCard from './Components/Email_Card.jsx';
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function ProfilePage() {
   
@@ -29,6 +30,11 @@ function ProfilePage() {
           <div className="profile-image-placeholder">
             <img src={UserIcon} alt="User Icon" className="profile-image" />
           </div>
+
+          <Link to ="/signupcus" className='logout-button-link'>
+            <button className='logout-button'>Logout</button>
+          </Link>
+
           <p className="profile-name">{name} {surname}</p>
 
           <div className="balance">

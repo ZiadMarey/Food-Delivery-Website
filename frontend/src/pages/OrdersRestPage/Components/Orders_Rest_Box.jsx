@@ -1,6 +1,6 @@
 import "./Orders_Rest_Box.css";
-
-
+import { Link } from "react-router-dom";
+import Link_Icon from '../assets/open-in-new.svg';
 
 function RestOrderCard(){
 
@@ -9,8 +9,15 @@ function RestOrderCard(){
               <div className="card-content">
                 <div className="card-details">
                   <p className="customer-name">Customer name</p>
+                  
                   <p className="date-ordered">Date ordered</p>
-                  <a href="#" className="view-details">View order details</a>
+                  <Link to ="/historyorderpreview"> {/* need to change this when we do a restaurant version*/}
+                    <p className='view-details'>View order details</p>
+                  </Link>
+                  <Link to ="/profile" className="customer-profile-details"> {/* need to change this when we do a version without logout and acc balance*/}
+                    <p className='view-details'>View Customer Details</p>
+                  </Link>
+
                 </div>
                 <div className = "confirm-reject" > 
                     <button className = "confirm"> Confirm </button> <br /> <br />

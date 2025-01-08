@@ -14,6 +14,7 @@ import SignupRestaurant from "./pages/SignupForms/signup-restaurant.jsx";
 import SignupCustomer from "./pages/SignupForms/signup-customer.jsx";
 import AddToMenu from "./pages/AddToMenu/add-to-menu.jsx";
 import RestaurantMenu from "./pages/RestaurantMenu/rest-menu.jsx";
+import ResturantInfo from "./pages/RestaurantInfo/rest-info.jsx"
 
 import StartPage from "./pages/Start/start.jsx";
 
@@ -61,8 +62,9 @@ function App() {
         
         
          <Route path="/signupres" element={<SignupRestaurant/>}></Route>
+         <Route path="/restaurantInfo" element={<ResturantInfo/>}></Route>
          <Route path="/signupcus" element={<SignupCustomer/>}></Route>
-
+         
 
 
        </Routes>

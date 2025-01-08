@@ -34,13 +34,22 @@
     margin: 0;
   }
   
-  .view-details {
+  .view-details{
     font-family: 'Poppins', sans-serif;
     font-size: 17px;
     text-decoration: underline;
     color: #0361c5;
     cursor: pointer;
   }
+
+  .customer-profile-details{
+    position: absolute;
+    top: 46.5%;
+    left: 30%;
+  }
+
+
+
   
 
 

@@ -1,6 +1,6 @@
 import './rest-profile-page.css'; 
 import UserIcon from "./assets/profilePlaceholder.svg";
-
+import { Link } from 'react-router-dom';
 
 function RestaurantProfilePage() {
   return (
@@ -18,7 +18,9 @@ function RestaurantProfilePage() {
         <div className="buttons-container">
           <button className="menu-button">Go to Menu</button>
           <button className="orders-button">Go to Orders</button>
-          
+          <Link to ="/signupres" className='res-logout-link'>
+            <button className='res-logout-button'>Logout</button>
+          </Link>
         </div>
       </div>
     </div>
