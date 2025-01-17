@@ -29,6 +29,7 @@ function UserOrderCard(props){
 }
 UserOrderCard.propTypes = {
   status: PropTypes.string,
+  
 }
 
 export default UserOrderCard;

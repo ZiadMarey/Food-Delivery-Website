@@ -1,62 +1,114 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './signup-customer.css';
-  
-{/*changed it into a function*/}
-function SignupCustomer () {
+import { useNavigate, Link } from "react-router-dom";
+
+function SignupCustomer() {
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        address: '',
+        postalCode: '',
+        password: '',
+        confirmpassword: ''
+    });
+
+    const [errormsg, setErrorMsg] = useState('');
+    const navigate = useNavigate();
+
+    const handleInputChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const { firstName, lastName, email, address, postalCode, password, confirmpassword } = formData;
+        if (password !== confirmpassword) {
+            setErrorMsg('Passwords do not match!');
+        } else {
+            setErrorMsg('');
+            const data = {
+                firstName,
+                lastName,
+                email,
+                address,
+                postalCode,
+                password
+            }
+            const url = "http://127.0.0.1:5000/register_customer"
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }
+            const response = await fetch(url, options)
+            if (response.status !== 201 && response.status !== 200) {
+                const data = await response.json()
+                alert(data.message)
+            } else {
+                console.log('Form submitted successfully');
+            }
+            navigate("/");
+        }
+    };
+
     return (
         <div className="body">
-    
             <div className="bgimage-sc"></div>
             <div className="wrapper">
-            <div className="formbox-signup">
-            <h2>Create an account</h2>
-            <p className="signin-text">Already have an account? <a href="customerlogin">Sign in</a></p>
-            <form action="#">
-                <div className="input-group">
-                    <div className="input-box half-width">
-                        <input type="text" required />
-                        <label>First name</label>
-                    </div>
-                    <div className="input-box half-width">
-                        <input type="text" required />
-                        <label>Last name</label>
-                    </div>
+                <div className="formbox-signup">
+                    <h2>Create an account</h2>
+                    <p className="signin-text">
+                        Already have an account? <Link to="/logincus">Sign in</Link>
+                    </p>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-group">
+                            <div className="input-box">
+                                <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
+                                <label>First name</label>
+                            </div>
+                            <div className="input-box">
+                                <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
+                                <label>Last name</label>
+                            </div>
+                        </div>
+                        <div className="input-box">
+                            <input type="email" name="email" value={formData.email} onChange={handleInputChange} required />
+                            <label>Email</label>
+                        </div>
+                        <div className="input-group">
+                            <div className="input-box">
+                                <input type="text" name="address" value={formData.address} onChange={handleInputChange} required />
+                                <label>Address</label>
+                            </div>
+                            <div className="input-box">
+                                <input type="text" name="postalCode" value={formData.postalCode} onChange={handleInputChange} required />
+                                <label>Post code</label>
+                            </div>
+                        </div>
+                        <div className="input-group">
+                            <div className="input-box">
+                                <input type="password" name="password" value={formData.password} onChange={handleInputChange} required />
+                                <label>Create password</label>
+                            </div>
+                            <div className="input-box">
+                                <input type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} required />
+                                <label>Confirm password</label>
+                            </div>
+                        </div>
+                        {errormsg && <p className="error-message" aria-live="assertive">{errormsg}</p>}
+                        <button type="submit" className="signup-button">Sign up</button>
+                    </form>
                 </div>
-                <div className="input-box full-width">
-                    <input type="email" required />
-                    <label>Email</label>
-                </div>
-                <div className="input-group">
-                    <div className="input-box half-width">
-                        <input type="text" required />
-                        <label>Address</label>
-                    </div>
-                    <div className="input-box half-width">
-                        <input type="text" required />
-                        <label>Post code</label>
-                    </div>
-                </div>
-                <div className="input-group">
-                    <div className="input-box half-width">
-                        <input type="password" id="pass1" required />
-                        <label>Create password</label>
-                    </div>
-                    <div className="input-box half-width">
-                        <input type="password" id="pass2" required />
-                        <label>Confirm password</label>
-                    </div>
-                    
-                </div>
-                <button type="submit" className="signup-button" >Sign up</button>
-                </form>
-                
             </div>
         </div>
-    
-
-    </div>
-
     );
-};
+}
 
 export default SignupCustomer;

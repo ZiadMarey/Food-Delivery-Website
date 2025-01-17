@@ -18,6 +18,8 @@ function Card(props){
 
             <p className='item-price card-items'> Item Price: {props.price}€</p>
 
+            <p className='restaurant-name card-items'>Restaurant: {props.restaurantName}</p>
+        
             {/*removing a card still doesnt work*/ }
             <img src={DeleteIcon} alt='delete' className='delete-icon' onClick={() => removeCard(props.id)}/>
             
@@ -30,6 +32,8 @@ Card.propTypes = {
     name: PropTypes.string ,
     quantity: PropTypes.number,
     price: PropTypes.number,
+    restaurantName: PropTypes.string
+  
 };
 
 export default Card;

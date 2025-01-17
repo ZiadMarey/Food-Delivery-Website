@@ -85,10 +85,10 @@ function RestaurantPage() {
       </div>
 
       <div className="grid-container">
-        <ItemsCard itemName="Cheese Burger" itemType="Burger" price={9.99} />
-        <ItemsCard itemName="Chicken Kebab" itemType="Kebab" price={13.99} />
-        <ItemsCard itemName="Fish Ackee" itemType="Ackee" price={15.99} />
-        <ItemsCard itemName="Green Smoothie" itemType="Smoothie" price={20.99} />
+        <ItemsCard itemName="Cheese Burger" itemType="Burger" price={9.99} restaurantName={restName}/>
+        <ItemsCard itemName="Chicken Kebab" itemType="Kebab" price={13.99} restaurantName={restName}/>
+        <ItemsCard itemName="Fish Ackee" itemType="Ackee" price={15.99} restaurantName={restName}/>
+        <ItemsCard itemName="Green Smoothie" itemType="Smoothie" price={20.99} restaurantName={restName} />
         
         
         

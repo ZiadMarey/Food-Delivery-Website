@@ -1,71 +1,93 @@
 .profile-content {
-    margin-top: 30px;
-    display: flex;
-    padding: 20px;
-    width: 1000px;
-    justify-content: center;
-    border: 10px solid rgb(0, 96, 79);
-    border-radius: 2%;
-    margin-left: 350px;
-    position: relative;
-    left: 90px;
-  }
-  
-  .left-section {
-    flex: 1;
-    padding: 20px;
-    background-color:  rgb(0, 96, 79);
-    border-radius: 2%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .profile-image-placeholder {
-    width: 200px;
-    height: 200px; 
-    margin: 0 auto; 
-    margin-top: 20px; 
-    border-radius: 50%; 
-    overflow: hidden;
-    background-color: #fff; 
-    display: flex;
-    align-items: center;
-    justify-content: center;   
+  margin-top: 30px;
+  display: flex;
+  padding: 20px;
+  width: 1000px;
+  justify-content: center;
+  border: 10px solid rgb(0, 96, 79);
+  border-radius: 2%;
+  margin-left: 350px;
+  position: relative;
+  left: 90px;
+}
 
-  }
+.left-section {
+  flex: 1;
+  padding: 20px;
+  background-color:  rgb(0, 96, 79);
+  border-radius: 2%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  .profile-image{
+.profile-image-placeholder {
+  width: 200px;
+  height: 200px; 
+  margin: 0 auto; 
+  margin-top: 20px; 
+  border-radius: 50%; 
+  overflow: hidden;
+  background-color: #fff; 
+  display: flex;
+  align-items: center;
+  justify-content: center;   
+
+}
+
+.profile-image{
+width: 100%;
+  height : auto;
+}
+
+.profile-name {
+  margin-top: 100px;
+  color: rgb(255, 242, 197);
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  
+}
+
+.balance {
+  margin-top: 20px;
+  color: rgb(255, 242, 197);
+  font-family: 'Poppins', sans-serif;
+  font-size: 23px;
+}
+
+
+.right-section {
+  border-radius: 2%;
+  flex: 2;
+  padding: 20px;
+  background-color: #fca975;
+  flex-direction: column;
+  
+  
+}
+
+.logout-button,
+.logout-button-link{
+  background-color: rgb(255, 242, 197);
+  border-radius: 5px;
+  position: relative;
+  top: 10%;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 2px 3px 0 black ;
+}
+
+.logout-button:hover,
+.logout-button-link:hover{
+  background-color: rgb(255, 250, 231);
+  box-shadow: 0 4px 5px 0 black 
+}
+
+.logout-button-link{
+  width:40%;
+}
+
+.logout-button{
   width: 100%;
-    height : auto;
-  }
-  
-  .profile-name {
-    margin-top: 100px;
-    color: rgb(255, 242, 197);
-    font-family: 'Poppins', sans-serif;
-    font-size: 26px;
-    
-  }
-  
-  .balance {
-    margin-top: 20px;
-    color: rgb(255, 242, 197);
-    font-family: 'Poppins', sans-serif;
-    font-size: 23px;
-  }
-  
- 
-  .right-section {
-    border-radius: 2%;
-    flex: 2;
-    padding: 20px;
-    background-color: #fca975;
-    flex-direction: column;
-   
-    
-  }
-  
-  
+}
