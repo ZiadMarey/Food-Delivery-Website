@@ -8,6 +8,13 @@
     background-color: #f5f5f5;
 }
 
+.error-message-res {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+  }
+
 .bgimage-sr{
     position: fixed;
     top: 0;

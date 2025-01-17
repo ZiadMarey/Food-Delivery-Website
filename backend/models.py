@@ -1,74 +1,100 @@
 from config import db
+from datetime import datetime
 
-class Food(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    food_name = db.Column(db.String(32), unique = False, nullable = False)
-    food_price = db.Column(db.String(8), unique = False, nullable = False)
+
+# Base User Model
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    user_type = db.Column(db.String(20), nullable=False)
+    restaurant = db.relationship('Restaurant', backref='user', uselist=False)
+    customer = db.relationship('Customer', backref='user', uselist=False)
 
     def to_json(self):
-        return{
+        return {
             "id": self.id,
-            "food_name": self.food_name,
-            "food_price": self.food_price
+            "email": self.email,
+            "userType": self.user_type,
         }
 
-#items in cart
-class Cart(db.Model):
+
+# Customer Model
+class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    food_name = db.Column(db.String(32), nullable=False)
-    food_price = db.Column(db.String(8), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-    restaurant_name = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False) 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    first_name = db.Column(db.String(80), nullable=False)
+    last_name = db.Column(db.String(80), nullable=False)
+    account_balance = db.Column(db.Float, nullable=False, default=100)
+    address = db.Column(db.String(255), nullable=True)
+    postal_code = db.Column(db.Integer, nullable=True)
 
 
     def to_json(self):
         return {
             "id": self.id,
-            "food_name": self.food_name,
-            "food_price": self.food_price,
-            "quantity": self.quantity,
-            "restaurant_name" : self.restaurant_name
+            "firstName": self.first_name,
+            "lastName": self.last_name,
+            "address": self.address,
+            "postalCode": self.postal_code,
+            "accountBalance": self.account_balance,
         }
-    
-
-# order table - used by order history
-class Order(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    customer_name = db.Column(db.String(100), nullable=False)
-    customer_address = db.Column(db.String(255), nullable=False)
-    total_price = db.Column(db.Float, nullable=False)
-    status = db.Column(db.Enum('Ongoing', 'Declined', 'Completed'), nullable=False, default='Pending')
-    date_ordered = db.Column(db.DateTime, nullable=False)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
-    restaurant_name  = db.relationship('Restaurant', backref=db.backref('orders', lazy=True))
-
-    def __repr__(self):
-        return f'<Order {self.id} - {self.status}>'
 
 
+# Restaurant Model
 class Restaurant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     restaurant_name = db.Column(db.String(80), unique=True, nullable=False)
     address = db.Column(db.String(120), nullable=False)
+    postal_code = db.Column(db.Integer, nullable=True)
     description = db.Column(db.Text, nullable=True)
-    image = db.Column(db.String(255), nullable=True)  # Optional image path
+    account_balance = db.Column(db.Float, nullable=False, default=0)
     opening_hours = db.relationship('OpeningHours', backref='restaurant', lazy=True)
     delivery_areas = db.relationship('DeliveryArea', backref='restaurant', lazy=True)
 
-    def __repr__(self):
-        return f'<Restaurant {self.name}>'
-    
+    def to_json(self):
+        return {
+            "id": self.id,
+            "restaurantName": self.restaurant_name,
+            "address": self.address,
+            "description": self.description,
+            "accountBalance": self.account_balance,
+        }
+
+
+# Menu Table
+class Food(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    food_name = db.Column(db.String(32), unique = False, nullable = False)
+    food_description = db.Column(db.Text, nullable=True)
+    food_price = db.Column(db.Integer, unique = False, nullable = False)
+    image = db.Column(db.String(255), nullable=True)  # Optional image path
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
+    restaurant = db.relationship('Restaurant', backref=db.backref('foods', lazy=True))
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "foodName": self.food_name,
+            "foodPrice": self.food_price,
+            "restaurantId": self.restaurant_id,
+        }
 
 # Opening Hours Table
 class OpeningHours(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    day_of_week = db.Column(db.String(20), nullable=False)
-    start_time = db.Column(db.Time, nullable=False)
-    end_time = db.Column(db.Time, nullable=False)
+    opening_time = db.Column(db.Time, nullable=False)
+    closing_time = db.Column(db.Time, nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
 
-    def __repr__(self):
-        return f'<OpeningHours {self.day_of_week} {self.start_time}-{self.end_time}>'
+    def to_json(self):
+        return {
+            "id": self.id,
+            "openingTime": self.opening_time,
+            "closingTime": self.closing_time,
+            "restaurantId": self.restaurant_id
+        }
 
 # Delivery Area Table
 class DeliveryArea(db.Model):
@@ -76,5 +102,56 @@ class DeliveryArea(db.Model):
     postal_code = db.Column(db.String(20), nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
 
-    def __repr__(self):
-        return f'<DeliveryArea {self.postal_code}>'
+    def to_json(self):
+        return {
+            "id": self.id,
+            "postalCode": self.postal_code,
+            "restaurantId": self.restaurant_id
+        }
+
+# Order Table
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customer_name = db.Column(db.String(100), nullable=False)
+    customer_address = db.Column(db.String(255), nullable=False)
+    total_price = db.Column(db.Float, nullable=False)
+    status = db.Column(db.Enum('pending', 'confirmed', 'declined', 'completed'), nullable=False, default='pending')
+    created_at = db.Column(db.DateTime, nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
+    restaurant = db.relationship('Restaurant', backref=db.backref('orders', lazy=True))
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "customerName": self.customer_name,
+            "customerAddress": self.customer_address,
+            "totalPrice": self.total_price,
+            "status": self.status,
+            "createdAt": self.created_at,
+            "restaurantId": self.restaurant_id
+        }
+    
+# OrderItem Table
+class OrderItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer, nullable=False)
+    price_at_order = db.Column(db.Float, nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
+    order = db.relationship('Order', backref=db.backref('order_foods', lazy=True))
+    food_id = db.Column(db.Integer, db.ForeignKey('food.id'), nullable=False)
+    food = db.relationship('Food', backref=db.backref('order_foods', lazy=True))
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "quantity": self.quantity,
+            "priceAtOrder": self.price_at_order,
+            "orderId": self.order_id,
+            "foodId": self.food_id
+        }
+    
+
+class BlacklistedToken(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, unique=True)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())

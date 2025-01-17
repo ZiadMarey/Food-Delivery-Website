@@ -1,10 +1,13 @@
 import './add-to-menu.css'
 import {useState} from 'react'
 
-function AddToMenu() {
+function AddToMenu({ existingFood = {}, updateCallback }) {
 
     const [foodName, setFoodName] = useState("")
     const [foodPrice, setFoodPrice] = useState("")
+    const token = localStorage.getItem("token");
+
+    const updating = Object.entries(existingFood).length !== 0
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -14,10 +17,11 @@ function AddToMenu() {
             foodPrice
         }
 
-        const url = "http://127.0.0.1:5000/add_food"
+        const url = "http://127.0.0.1:5000/" + (updating ? `update_food/${existingFood.id}` : "add_food")
         const options = {
-            method: "POST",
+            method: updating ? "PATCH" : "POST",
             headers: {
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
@@ -28,7 +32,7 @@ function AddToMenu() {
             const message = await response.json()
             alert(message.message)
         }else {
-            //successful 
+            updateCallback()
         }
     }
 
@@ -47,16 +51,11 @@ function AddToMenu() {
                 
                 <label htmlFor="foodPrice">Price:</label>
                 <input
-                    type="text"
+                    type="number"
                     id="foodPrice"
                     value={foodPrice}
                     onChange={(e) => setFoodPrice(e.target.value)}
                 />
-
-                <label for="food-photo">Upload the photo</label>
-                <div class="upload-container">
-                    <input type="file" id="food-photo" name="food-photo" />
-                </div>
 
                 <button type="submit" class="add-button">Add</button>
             </form>
