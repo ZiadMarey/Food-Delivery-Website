@@ -1,8 +1,12 @@
 import React, {useState} from 'react'
 import './signup-restaurant.css';
 import {useNavigate} from "react-router-dom";
+
+
+
   
 function SignupRestaurant() {
+
     const [formData, setFormData] = useState({
         restaurantName: '',
         email: '',
@@ -62,6 +66,7 @@ function SignupRestaurant() {
                 alert("An error occurred. Please try again.");
             }
         }
+
     };
 
     return (
@@ -107,8 +112,10 @@ function SignupRestaurant() {
                     
                 </div>
                 {errormsg && <p className="error-message-res">{errormsg}</p>}
+                
                 <button type="submit" className="signup-button" >Sign up</button>
-                </form>
+
+            </form>
                 
             </div>
         </div>

@@ -18,6 +18,7 @@ import LoginRestaurant from "./pages/LoginForms/LoginRestaurant/login-restaurant
 import RestaurantDetails from "./pages/SignupForms/restaurant_details.jsx";
 import StartPage from "./pages/Start/start.jsx";
 
+
 function App() {  
   console.log('App rendered');
   return (
@@ -28,6 +29,7 @@ function App() {
       <Routes>        
         <Route path="/" element={<StartPage/>} />
         
+        <Route path= "/homepage" element={<HomePage/>} />
         <Route path="/logincustomer" element={<LoginCustomer/>} />
         <Route path="/loginrestaurant" element={<LoginRestaurant/>} />
         <Route path="/userorderhist" element={<UserOrderPage />} />
@@ -44,7 +46,8 @@ function App() {
         <Route path="/restaurant_details" element={<RestaurantDetails/>}/>
         <Route path="/signupcus" element={<SignupCustomer/>}/>
 
-
+        <Route path="/logincus" element={<LoginCustomer/>} />
+        <Route path="/loginres" element={<LoginRestaurant/>} />
 
       </Routes>
     </Router>

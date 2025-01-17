@@ -55,7 +55,7 @@ const LoginRestaurant = () => {
       
       <div className="bgimage-1"></div>
         <div className="wrapper-r">
-         <div className="login-box-r">Login as Business</div>
+         <div className="login-box-r">Login as a Business</div>
           <form onSubmit={handleLogin}>
           <div className="input-box-r">
           <input
@@ -65,7 +65,7 @@ const LoginRestaurant = () => {
               onChange={(e) => setUsername(e.target.value)}
               required
             />
-            <label>Email</label>
+            <label >Email</label>
           </div>
           <div className="input-box-r">
           <input
