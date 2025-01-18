@@ -78,7 +78,7 @@ function RestaurantDetails() {
                 alert(responseData.message);
             } else {
                 console.log('Restaurant details submitted successfully');
-                navigate("/logincustomer");
+                navigate("/loginres");
             }
         } catch (error) {
             console.error("Error during form submission:", error);

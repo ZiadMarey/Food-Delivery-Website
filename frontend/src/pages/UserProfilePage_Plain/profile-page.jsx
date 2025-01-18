@@ -17,7 +17,7 @@ function ProfilePage() {
     email: "",
     address: "",
     postalCode: "",
-    accountBalance: 0
+
   });
 
   const [loading, setLoading] = useState(true);
@@ -63,7 +63,6 @@ function ProfilePage() {
           email: data.email || "",
           address: data.address || "",
           postalCode: data.postalCode || "",
-          accountBalance: data.accountBalance || 0
         });
 
         setLoading(false);
@@ -91,16 +90,8 @@ function ProfilePage() {
           <div className="profile-image-placeholder">
             <img src={UserIcon} alt="User Icon" className="profile-image" />
           </div>
-
-          <Link to ="/signupcus" className='logout-button-link'>
-            <button className='logout-button'>Logout</button>
-          </Link>
-
           <p className="profile-name">{profile.name} {profile.surname}</p>
 
-          <div className="balance">
-            <p>Account Balance: ${profile.accountBalance.toFixed(2)}</p>
-          </div>
         </div>
 
         <div className="right-section">

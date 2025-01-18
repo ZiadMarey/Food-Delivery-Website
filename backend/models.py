@@ -149,6 +149,7 @@ class OrderItem(db.Model):
             "orderId": self.order_id,
             "foodId": self.food_id
         }
+
     
 
 class BlacklistedToken(db.Model):

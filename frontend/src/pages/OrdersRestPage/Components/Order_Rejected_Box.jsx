@@ -16,7 +16,7 @@ return(
                     <p className='view-details'>View order details</p>
                   </Link>
 
-                  <Link to ="/profile" className="customer-profile-details"> {/* need to change this when we do a version without logout and acc balance*/}
+                  <Link to ="/userprofileplain" className="customer-profile-details"> {/* need to change this when we do a version without logout and acc balance*/}
                     <p className='view-details'>View Customer Profile</p>
                   </Link>
                 </div>
