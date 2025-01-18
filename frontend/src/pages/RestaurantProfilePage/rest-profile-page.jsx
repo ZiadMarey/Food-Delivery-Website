@@ -99,6 +99,14 @@ function RestaurantProfilePage() {
             >
               Go to Orders
             </button>
+
+
+            <button 
+              className='res-logout-button'
+            >
+              Logout
+            </button>
+
           </div>
         </div>
       </div>

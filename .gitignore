@@ -130,7 +130,7 @@ dist
 .pnp.*
 
 #python libraries
-__pycache__
+__pycache__/
 /.stestr
 settings.json
 .venv

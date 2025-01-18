@@ -1,0 +1,31 @@
+.profile-box {
+    display: flex;
+    width: 500px;
+    height : 100px;
+    margin-bottom: 15px;
+    align-items: center;
+    
+  }
+
+  .profile-label {
+    font-family: 'Poppins', sans-serif;
+    color : rgb(0, 96, 79);
+    font-weight: bold;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 24px;
+  }
+
+  .profile-value {
+    padding-left: 10px;
+    background-color: #e18256;
+    height: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    flex: 1;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(0, 59, 47);
+    font-size: 22px;
+  }
+  

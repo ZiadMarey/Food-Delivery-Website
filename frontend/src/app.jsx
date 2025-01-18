@@ -17,7 +17,8 @@ import LoginCustomer from "./pages/LoginForms/LoginCustomer/login-customer.jsx"
 import LoginRestaurant from "./pages/LoginForms/LoginRestaurant/login-restaurant.jsx"
 import RestaurantDetails from "./pages/SignupForms/restaurant_details.jsx";
 import StartPage from "./pages/Start/start.jsx";
-
+import PlainUserProfile from "./pages/UserProfilePage_Plain/profile-page.jsx"
+import LieferspatzPage from "./pages/LieferspatzPage/lieferspatz.jsx";
 
 function App() {  
   console.log('App rendered');
@@ -33,10 +34,13 @@ function App() {
         <Route path="/logincustomer" element={<LoginCustomer/>} />
         <Route path="/loginrestaurant" element={<LoginRestaurant/>} />
         <Route path="/userorderhist" element={<UserOrderPage />} />
+
         <Route path="/restorders" element={<RestOrderPage />} />
         <Route path="/restprofile" element={<RestaurantProfilePage />} />
         <Route path="/profile" element={<ProfilePage />} />
-       
+        <Route path="/userprofileplain" element={<PlainUserProfile />} />
+        <Route path="/lieferspatzpage" element={<LieferspatzPage />} />
+        
         <Route path="/restaurant/:restName" element={<RestaurantPage />} />
         <Route path="/userorderpreview" element={<UserOrderPreview />} />
         <Route path="/historyorderpreview" element={<HistoryOrderPreview />} />
