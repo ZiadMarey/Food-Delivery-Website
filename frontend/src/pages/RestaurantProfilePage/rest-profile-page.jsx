@@ -1,5 +1,5 @@
-import './rest-profile-page.css'; 
-import UserIcon from "./assets/profilePlaceholder.svg";
+import './rest-profile-page1.css'; 
+import UserIcon from "./assets/profilePlaceholder2.svg";
 import { useNavigate, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 

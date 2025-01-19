@@ -17,7 +17,7 @@ function MainHeader() {
             <div className='logo-container'>
 
 
-            <Link to="/" className = "header-elements logo-container ">
+            <Link to="/homepage" className = "header-elements logo-container ">
                 <img src={LogoPlaceholder} alt="Website-Logo" className="header-elements website-logo" />
         
                 <h2 className="header-elements header-restaurant-name website-name">Lieferspatz</h2>
