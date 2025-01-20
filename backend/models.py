@@ -139,7 +139,7 @@ class OrderItem(db.Model):
     price_at_order = db.Column(db.Float, nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
     order = db.relationship('Order', backref=db.backref('order_foods', lazy=True))
-    food_id = db.Column(db.Integer, db.ForeignKey('food.id'), nullable=False)
+    food_id = db.Column(db.Integer, db.ForeignKey('food.id', ondelete="SET NULL"), nullable=True)
     food = db.relationship('Food', backref=db.backref('order_foods', lazy=True))
 
     def to_json(self):
@@ -152,7 +152,19 @@ class OrderItem(db.Model):
         }
 
 
+class Lieferspatz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    balance = db.Column(db.Float, nullable=False)
     
+
+    def to_json(self):
+        return{
+            "id" : self.id,
+            "Balance" : self.balance,
+            
+        }
+
+
 
 class BlacklistedToken(db.Model):
     id = db.Column(db.Integer, primary_key=True)

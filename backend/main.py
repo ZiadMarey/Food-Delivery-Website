@@ -1,6 +1,6 @@
 from flask import request, jsonify, session
 from config import app, db
-from models import Food , User, Restaurant, OpeningHours, DeliveryArea, Customer, Order, OrderItem, BlacklistedToken
+from models import Food , User, Restaurant,Lieferspatz ,OpeningHours, DeliveryArea, Customer, Order, OrderItem, BlacklistedToken
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from datetime import timedelta
@@ -237,6 +237,17 @@ def get_profile():
 
     return jsonify(profile_data), 200
 
+@app.route("/get-user-type", methods=["GET"])
+@jwt_required()
+def get_user_type():
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(id=current_user["id"]).first()
+    user_type({"userType":user.user_type})
+
+    return jsonify(user_type), 200
+
+
+
 @app.route("/homepage", methods=["GET"])
 @jwt_required()
 def load_homepage():
@@ -338,7 +349,15 @@ def create_order():
     customer.account_balance -= total_price
 
     # Add 80% of the total price to the restaurant's account balance
-    restaurant.account_balance += total_price * 0.8
+    restaurant.account_balance += total_price * 0.86
+    lieferspatz = Lieferspatz.query.first()
+    if not lieferspatz:
+         lieferspatz = Lieferspatz(balance=0)  # Create a new Lieferspatz record if it doesn't exist
+         db.session.add(lieferspatz)
+         db.session.commit()
+
+    # Update Lieferspatz balance
+    lieferspatz.balance += total_price * 0.15
 
     try:
         # Create the order
@@ -372,54 +391,112 @@ def create_order():
     except Exception as e:
         db.session.rollback()
         return jsonify({"message": str(e)}), 500
+    
+
+#liefer
+@app.route("/lieferspatz_balance", methods=["GET"])
+@jwt_required()
+def get_lieferspatz_balance():
+    # Assuming Lieferspatz has only one record
+    lieferspatz = Lieferspatz.query.first()
+
+    if not lieferspatz:
+        lieferspatz = Lieferspatz(balance=0)  # Create a new Lieferspatz record if it doesn't exist
+        db.session.add(lieferspatz)
+        db.session.commit()
+
+    return jsonify({"balance": lieferspatz.balance}), 200
+
+    
 
 @app.route("/orders", methods=["GET"])
 @jwt_required()
-def order_details():
+def orders():
     current_user = get_jwt_identity()
 
     # Fetch the user from the database
     user = User.query.filter_by(id=current_user["id"]).first()
-    if not user or user.user_type != "customer":
-        return jsonify({"message": "Unauthorized. Only customers can view order details"}), 403
+    if not user:
+        return jsonify({"message": "Unauthorized user"}), 403
 
-    # Retrieve all orders for the logged-in customer using customer_id
-    customer = Customer.query.filter_by(user_id=user.id).first()
-    if not customer:
-        return jsonify({"message": "Customer details not found"}), 404
+    if user.user_type == "customer":
+        # Retrieve all orders for the logged-in customer using customer_id
+        customer = Customer.query.filter_by(user_id=user.id).first()
+        if not customer:
+            return jsonify({"message": "Customer details not found"}), 404
 
-    orders = Order.query.filter_by(customer_id=customer.id).all()
+        orders = Order.query.filter_by(customer_id=customer.id).all()
 
-    if not orders:
-        return jsonify({"message": "No orders found"}), 404
+        if not orders:
+            return jsonify({"message": "No orders found"}), 404
 
-    # Serialize order details
-    order_details = []
-    for order in orders:
-        # Fetch restaurant details
-        restaurant = Restaurant.query.filter_by(id=order.restaurant_id).first()
+        # Serialize order details for customers
+        order_details = []
+        for order in orders:
+            # Fetch restaurant details
+            restaurant = Restaurant.query.filter_by(id=order.restaurant_id).first()
 
-        # Get order items
-        order_items = OrderItem.query.filter_by(order_id=order.id).all()
-        items = [
-            {
-                "foodName": item.food.food_name,
-                "quantity": item.quantity,
-                "priceAtOrder": item.price_at_order
-            }
-            for item in order_items
-        ]
+            # Get order items
+            order_items = OrderItem.query.filter_by(order_id=order.id).all()
+            items = [
+                {
+                    "foodName": item.food.food_name,
+                    "quantity": item.quantity,
+                    "priceAtOrder": item.price_at_order
+                }
+                for item in order_items
+            ]
 
-        order_details.append({
-            "orderId": order.id,
-            "restaurantName": restaurant.restaurant_name,
-            "totalPrice": order.total_price,
-            "status": order.status,
-            "createdAt": order.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-            "items": items
-        })
+            order_details.append({
+                "orderId": order.id,
+                "restaurantName": restaurant.restaurant_name if restaurant else "Unknown",
+                "totalPrice": order.total_price,
+                "status": order.status,
+                "createdAt": order.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+                "items": items
+            })
 
-    return jsonify({"orders": order_details}), 200
+        return jsonify({"orders": order_details}), 200
+
+    elif user.user_type == "restaurant":
+        # Retrieve all orders for the restaurant
+        restaurant = Restaurant.query.filter_by(user_id=user.id).first()
+        if not restaurant:
+            return jsonify({"message": "Restaurant details not found"}), 404
+
+        orders = Order.query.filter_by(restaurant_id=restaurant.id).all()
+
+        if not orders:
+            return jsonify({"message": "No orders found"}), 404
+
+        # Serialize order details for restaurants
+        order_details = []
+        for order in orders:
+            # Get order items
+            order_items = OrderItem.query.filter_by(order_id=order.id).all()
+            items = [
+                {
+                    "foodName": getattr(item.food, "food_name", "Unknown Food"),
+                    "quantity": item.quantity,
+                    "priceAtOrder": item.price_at_order
+                }
+                for item in order_items
+            ]
+
+            order_details.append({
+                "orderId": order.id,
+                "customerName": order.customer_name,
+                "customerAddress": order.customer_address,
+                "totalPrice": order.total_price,
+                "status": order.status,
+                "createdAt": order.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+                "items": items
+            })
+
+        return jsonify({"orders": order_details}), 200
+
+    else:
+        return jsonify({"message": "Unauthorized user type"}), 403
 
 @app.route("/order_details/<int:order_id>", methods=["GET"])
 @jwt_required()
@@ -428,40 +505,82 @@ def get_order_details(order_id):
 
     # Fetch the user from the database
     user = User.query.filter_by(id=current_user["id"]).first()
-    if not user or user.user_type != "customer":
-        return jsonify({"message": "Unauthorized. Only customers can view order details"}), 403
+    if not user:
+        return jsonify({"message": "Unauthorized. User not found"}), 403
 
-    # Retrieve the specific order for the logged-in customer
-    order = Order.query.filter_by(id=order_id, customer_id=user.customer.id).first()
-    if not order:
-        return jsonify({"message": "Order not found"}), 404
+    # For customers: Ensure the order belongs to the customer
+    if user.user_type == "customer":
+        order = Order.query.filter_by(id=order_id, customer_id=user.customer.id).first()
+        if not order:
+            return jsonify({"message": "Order not found"}), 404
 
-    # Fetch restaurant details
-    restaurant = Restaurant.query.filter_by(id=order.restaurant_id).first()
+        # Fetch restaurant details
+        restaurant = Restaurant.query.filter_by(id=order.restaurant_id).first()
 
-    # Fetch order items
-    order_items = OrderItem.query.filter_by(order_id=order.id).all()
-    items = [
-        {
-            "foodName": item.food.food_name,
-            "quantity": item.quantity,
-            "priceAtOrder": item.price_at_order,
+        # Fetch order items
+        order_items = OrderItem.query.filter_by(order_id=order.id).all()
+        items = [
+            {
+                "foodName": getattr(item.food, "food_name", "Unknown Food"),
+                "quantity": item.quantity,
+                "priceAtOrder": item.price_at_order,
+            }
+            for item in order_items
+        ]
+
+        # Serialize order details
+        order_details = {
+            "orderId": order.id,
+            "restaurantName": restaurant.restaurant_name if restaurant else "Unknown",
+            "restaurantId": restaurant.id if restaurant else None,
+            "totalPrice": order.total_price,
+            "status": order.status,
+            "createdAt": order.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+            "items": items,
         }
-        for item in order_items
-    ]
 
-    # Serialize order details
-    order_details = {
-        "orderId": order.id,
-        "restaurantName": restaurant.restaurant_name if restaurant else "Unknown",
-        "totalPrice": order.total_price,
-        "status": order.status,
-        "createdAt": order.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-        "items": items,
-    }
+        return jsonify(order_details), 200
 
-    return jsonify(order_details), 200
-    
+    # For restaurants: Ensure the order belongs to the restaurant
+    elif user.user_type == "restaurant":
+        restaurant = Restaurant.query.filter_by(user_id=user.id).first()
+        if not restaurant:
+            return jsonify({"message": "Restaurant not found"}), 404
+
+        order = Order.query.filter_by(id=order_id, restaurant_id=restaurant.id).first()
+        if not order:
+            return jsonify({"message": "Order not found"}), 404
+
+        # Fetch customer details
+        customer = Customer.query.filter_by(id=order.customer_id).first()
+
+        # Fetch order items
+        order_items = OrderItem.query.filter_by(order_id=order.id).all()
+        items = [
+            {
+                "foodName": getattr(item.food, "food_name", "Unknown Food"),
+                "quantity": item.quantity,
+                "priceAtOrder": item.price_at_order,
+            }
+            for item in order_items
+        ]
+
+        # Serialize order details
+        order_details = {
+            "orderId": order.id,
+            "customerName": customer.first_name if customer else "Unknown",
+            "customerAddress": order.customer_address,
+            "totalPrice": order.total_price,
+            "status": order.status,
+            "createdAt": order.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+            "items": items,
+        }
+
+        return jsonify(order_details), 200
+
+    else:
+        return jsonify({"message": "Unauthorized. Only customers or restaurant owners can view order details"}), 403
+
 @app.route("/menu", methods=["GET"])
 @jwt_required()
 def get_menu():
@@ -532,11 +651,21 @@ def update_food(food_id):#need to update
 @app.route("/delete_food/<int:food_id>", methods = ["DELETE"])
 @jwt_required()
 def delete_food(food_id):
-    
+   
     food = Food.query.get(food_id)
 
     if not food:
         return jsonify({"message": "Food not exist"}), 404
+
+    order_items = OrderItem.query.filter_by(food_id=food_id).all()
+
+    if order_items:
+        # Handle the situation where the food is still referenced in order items
+        # For example, set the food_id to None (if the database schema allows it)
+        for order_item in order_items:
+            order_item.food_id = None
+        db.session.commit()  # Save the changes to the OrderItem table
+
     
     db.session.delete(food)
     db.session.commit()
