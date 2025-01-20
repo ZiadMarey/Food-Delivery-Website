@@ -1,16 +1,11 @@
 import './preview-cards.css';
 import { PropTypes } from "prop-types";
 
-function TotalCard(props){
+function TotalCard({totalPrice}){
     return(
         <div className='card'>
-            <p className='total-text'> Total: &nbsp; {props.total}€ </p>
+            <p className='total-text'> Total: {totalPrice}€ </p>
         </div>
     );
 }
-
-TotalCard.propTypes = {
-    total: PropTypes.number,
-}
-
 export default TotalCard;

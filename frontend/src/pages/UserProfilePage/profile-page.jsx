@@ -76,6 +76,36 @@ function ProfilePage() {
     fetchProfile();
   }, [navigate, token]);
 
+
+  const handleLogout = async () => {
+    if (!token) {
+      alert("You are not logged in.");
+      navigate("/logincustomer");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/logout", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (response.status === 401) {
+        alert("Session expired. Please log in again.");
+      } else if (!response.ok) {
+        throw new Error("Logout failed.");
+      }
+
+      localStorage.removeItem("token");
+      navigate("/logincustomer");
+    } catch (error) {
+      alert(`An error occurred: ${error.message}`);
+    }
+  };
+
   if (loading) {
     return <p>Loading profile...</p>;
   }
@@ -91,11 +121,7 @@ function ProfilePage() {
           <div className="profile-image-placeholder">
             <img src={UserIcon} alt="User Icon" className="profile-image" />
           </div>
-
-          <Link to ="/signupcus" className='logout-button-link'>
-            <button className='logout-button'>Logout</button>
-          </Link>
-
+            <button className='logout-button' onClick={handleLogout}>Logout</button>
           <p className="profile-name">{profile.name} {profile.surname}</p>
 
           <div className="balance">

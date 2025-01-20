@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import ItemsCard from "./ItemComponents/items.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./restaurant-page.css";
@@ -17,12 +18,43 @@ import VeganPic from "./NewAssets/Vegan.jpg";
 function RestaurantPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { restName, restDescription, openHours, closeHours } = location.state;
+  const token = localStorage.getItem("token");
+  const { restID, restName, restDescription, openHours, closeHours } = location.state;
+
+  const [menu, setMenu] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
 
   const handleProceedToOverview = () => {
     navigate("/userorderpreview");
   };
 
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/restaurant?restID=${restID}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch menu: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setMenu(data.menu);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchMenu();
+  }, [restID]);
   
 
   const getRestaurantImage = () => {
@@ -74,7 +106,7 @@ function RestaurantPage() {
 
         <h1 className="restaurant-name">{restName}</h1>
         <p className="opening-hour-desc">
-          Opening Hours: {openHours}:00 - {closeHours}:00
+          Opening Hours: {openHours} - {closeHours}
           <br />
           {restDescription}
         </p>
@@ -82,15 +114,21 @@ function RestaurantPage() {
 
       <div className="menu-section">
         <h2>Menu</h2>
+        {loading && <p>Loading menu...</p>}
+        {error && <p>Error: {error}</p>}
       </div>
 
       <div className="grid-container">
-        <ItemsCard itemName="Cheese Burger" itemType="Burger" price={9.99} restaurantName={restName}/>
-        <ItemsCard itemName="Chicken Kebab" itemType="Kebab" price={13.99} restaurantName={restName}/>
-        <ItemsCard itemName="Fish Ackee" itemType="Ackee" price={15.99} restaurantName={restName}/>
-        <ItemsCard itemName="Green Smoothie" itemType="Smoothie" price={20.99} restaurantName={restName} />
-        
-        
+      {menu.map((item) => (
+          <ItemsCard
+            itemID={item.id}
+            itemName={item.foodName} // Based on your Food model's fields
+            //itemType={item.type} // Add type if available in the backend response
+            restID={restID}
+            price={item.foodPrice} // Based on your Food model's fields
+            restaurantName={restName}
+          />
+        ))}
         
       </div>
 

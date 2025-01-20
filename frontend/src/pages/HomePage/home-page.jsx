@@ -1,8 +1,49 @@
 import Card from "./Components/HomePage_Card/hp-card.jsx";
-
+import React, { useState, useEffect } from "react";
 import "./home-page.css";
 
 function HomePage() {
+
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch restaurants data from the API
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/homepage", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch restaurants.");
+        }
+
+        const data = await response.json();
+        setRestaurants(data.restaurants);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchRestaurants();
+  }, []);
+
+  if (loading) {
+    return <p>Loading restaurants...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   
   return (
     <div className="home-page">
@@ -11,69 +52,15 @@ function HomePage() {
       {/* add zipcode to display which area*/}
       <p className="restArea"> Restaurants in your area </p>
       <div className="card-pool">
-        <>
+        {restaurants.map((restaurant) => (
           <Card
-            restName="Bamboo Garden"
-            restDescription="Chinese"
-            openHours={8}
-            closeHours={18}
+            restID={restaurant.id}
+            restName={restaurant.restaurantName}
+            restDescription={restaurant.description}
+            openHours={restaurant.openingHours[0]?.openingTime || "N/A"}
+            closeHours={restaurant.openingHours[0]?.closingTime || "N/A"}
           />
-          <Card 
-          restName="Mumbai Magic"
-          restDescription="Indian"
-          openHours={10}
-          closeHours={20}/>
-          <Card 
-          restName="Sunflower"
-          restDescription="Vegan"
-          openHours={9}
-          closeHours={21}/>
-          <Card 
-          restName="Sunrise Cafe"
-          restDescription="Breakfast"
-          openHours={7}
-          closeHours={15}/>
-          <Card 
-          restName="Sakura Savor"
-          restDescription="Japanese"
-          openHours={9}
-          closeHours={19}/>
-          <Card 
-          restName="Taco Fiesta"
-          restDescription="Mexican"
-          openHours={10}
-          closeHours={20}/>
-          <Card 
-          restName="Sahara Sizzle"
-          restDescription="Arabic"
-          openHours={10}
-          closeHours={22}/>
-          <Card 
-          restName="Kyoto Cuisine"
-          restDescription="Asian"
-          openHours={8}
-          closeHours={22}/>
-          <Card 
-          restName="Caribbean Pulse"
-          restDescription="Jamaican"
-          openHours={8}
-          closeHours={20}/>
-          <Card 
-          restName="Muffin Mania"
-          restDescription="Breakfast"
-          openHours={7}
-          closeHours={15}/>
-          <Card 
-          restName="India Gate"
-          restDescription="Indian"
-          openHours={8}
-          closeHours={19}/>
-          <Card 
-          restName="Wok and Roll"
-          restDescription="Asian"
-          openHours={9}
-          closeHours={21}/>
-        </>
+        ))}
       </div>
     </div>
   );

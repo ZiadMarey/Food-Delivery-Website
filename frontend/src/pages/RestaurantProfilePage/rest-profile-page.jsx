@@ -66,6 +66,35 @@ function RestaurantProfilePage() {
   
       fetchProfile();
     }, [navigate, token]);
+
+    const handleLogout = async () => {
+      if (!token) {
+        alert("You are not logged in.");
+        navigate("/logincustomer");
+        return;
+      }
+  
+      try {
+        const response = await fetch("http://127.0.0.1:5000/logout", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+  
+        if (response.status === 401) {
+          alert("Session expired. Please log in again.");
+        } else if (!response.ok) {
+          throw new Error("Logout failed.");
+        }
+  
+        localStorage.removeItem("token");
+        navigate("/loginrestaurant");
+      } catch (error) {
+        alert(`An error occurred: ${error.message}`);
+      }
+    };
   
     if (loading) {
       return <p>Loading profile...</p>;
@@ -102,7 +131,7 @@ function RestaurantProfilePage() {
 
 
             <button 
-              className='res-logout-button'
+              className='res-logout-button' onClick={handleLogout}
             >
               Logout
             </button>

@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import './r-order-container.css';
 
 import RestOrderCard from '../Components/Orders_Rest_Box';
@@ -9,17 +9,46 @@ import ConfirmCard from '../Components/Order_Confirmed_Box';
 
 
 function RestOrderContainer (){
-    const [cards, setCards] = useState([]);
-
-    const addCard = () => {
-        setCards([...cards, {id: cards.length + 1}])
-    }
-
-    const removeCard = (id) => {
-        setCards(cards.filter((card) => card.id !== id));
-    }
-
-    const containerHeight = cards.length >1 ?  (cards.length-1) : 2
+        const [orders, setOrders] = useState([]); // Holds fetched orders
+        const [loading, setLoading] = useState(true); // Loading state
+        const [error, setError] = useState(null); // Error handling
+    
+        // Fetch orders from the backend
+        useEffect(() => {
+            const fetchOrders = async () => {
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/orders', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`, // Use token if needed
+                        },
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch orders');
+                    }
+    
+                    const data = await response.json();
+                    setOrders(data.orders); 
+                } catch (err) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            };
+    
+            fetchOrders();
+        }, []);
+    
+        if (loading) {
+            return <div className="loading">Loading...</div>;
+        }
+    
+        if (error) {
+            return <div className="error">Error: {error}</div>;
+        }
+    
+        const containerHeight = orders.length > 1 ? orders.length * 21.5 + 60 : 81.5;
     ; 
     //this line records the number of cards present above 1, because 1 is the default amount of cards in the container
 
@@ -30,17 +59,19 @@ function RestOrderContainer (){
         }}>
             <p className="order-list-text">Order History</p>
 
-         <RestOrderCard></RestOrderCard>
-            <RejectCard></RejectCard>
-            <ConfirmCard></ConfirmCard>
-
-
-
-
-
+            {orders.map((order) => (
+                <RestOrderCard
+                    orderID={order.orderId}
+                    restaurantName={order.restaurantName}
+                    orderDate={order.createdAt}
+                    status={order.status}
+                    totalPrice={order.totalPrice}
+                />
+            ))}
             
 
-            <Link to ="/" className='return-button'>
+
+            <Link to ="/restprofile" className='return-button'>
                 <p className='reutn-text'>Return</p>
             </Link>
         </div>

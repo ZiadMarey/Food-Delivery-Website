@@ -118,6 +118,7 @@ class Order(db.Model):
     status = db.Column(db.Enum('pending', 'confirmed', 'declined', 'completed'), nullable=False, default='pending')
     created_at = db.Column(db.DateTime, nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     restaurant = db.relationship('Restaurant', backref=db.backref('orders', lazy=True))
 
     def to_json(self):
@@ -138,7 +139,7 @@ class OrderItem(db.Model):
     price_at_order = db.Column(db.Float, nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
     order = db.relationship('Order', backref=db.backref('order_foods', lazy=True))
-    food_id = db.Column(db.Integer, db.ForeignKey('food.id'), nullable=False)
+    food_id = db.Column(db.Integer, db.ForeignKey('food.id', ondelete="SET NULL"), nullable=True)
     food = db.relationship('Food', backref=db.backref('order_foods', lazy=True))
 
     def to_json(self):
@@ -149,6 +150,7 @@ class OrderItem(db.Model):
             "orderId": self.order_id,
             "foodId": self.food_id
         }
+
 
     
 

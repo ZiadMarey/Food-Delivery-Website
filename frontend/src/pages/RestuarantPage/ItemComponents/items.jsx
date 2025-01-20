@@ -65,11 +65,9 @@ import VeganBurger from "./ItemImages/Vegan/Veganburger.png";
 
 
 
-
-
 function ItemsCard(props) {
 
-  const {itemName, price, itemType, restaurantName} = props;
+  const {restID,itemID,itemName, price, itemType} = props;
 
   const [quantity, setQuantity] = useState(0);
 
@@ -85,37 +83,49 @@ function ItemsCard(props) {
 
   }
 
-
-  
   const addToCart = () => {
-    if (quantity > 0) {
-      const cartItem = {
-        foodName: itemName,
-        foodPrice: price,
-        quantity: quantity,
-        restaurantName: restaurantName
-      };
-
-      fetch("http://127.0.0.1:5000/add_food_to_cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cartItem),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Item added to cart:", data);
-          // Optionally, update state here for local cart management
-        })
-        .catch((error) => {
-          console.error("Error adding item to cart:", error);
-        });
-    } else {
-      alert("Please select a quantity greater than 0.");
-    }
-  };
+    // Get the existing cart from localStorage or initialize an empty array
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
   
+    // Find if the item already exists in the cart
+    const existingItemIndex = existingCart.findIndex((item) => item.itemID === itemID);
+  
+    if (existingItemIndex > -1) {
+      // If item exists, update its quantity
+      existingCart[existingItemIndex].quantity += quantity;
+    } else {
+      // If item doesn't exist, add a new item
+      existingCart.push({
+        restID,
+        itemID,
+        itemName,
+        price,
+        quantity,
+      });
+    }
+
+    if (existingCart.length > 0 && existingCart[0].restID !== restID) {
+      alert("You can only add items from one restaurant at a time. Please clear your cart.");
+      return;
+    }
+  
+    // Save the updated cart back to localStorage
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+  
+    // Optionally alert the user or log the updated cart
+    alert(`${itemName} added to cart!`);
+    console.log("Updated Cart:", existingCart);
+
+    console.log("Adding to cart:", {
+      restID,
+      itemID,
+      itemName,
+      price,
+      quantity,
+    });
+  };
+
+
   const getItemImage = () => {
     switch (itemType) {
       // Arabic Items
