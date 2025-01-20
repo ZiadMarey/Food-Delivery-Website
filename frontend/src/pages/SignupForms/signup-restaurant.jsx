@@ -101,7 +101,7 @@ function SignupRestaurant() {
                     </div>
                 </div>
                 <div className="input-group-sr">
-                    <div classNames="input-box half-width">
+                    <div className="input-box half-width">
                         <input type="password" name="password" value={formData.password} onChange={handleInputChange} required />
                         <label>Create password</label>
                     </div>
