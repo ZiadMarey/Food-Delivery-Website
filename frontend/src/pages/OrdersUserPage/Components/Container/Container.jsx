@@ -1,22 +1,50 @@
 import Card from '../Cards/order-card.jsx'
 
 import { Link } from 'react-router-dom';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import './Container.css'
 
 function Container (){
-    const [cards, setCards] = useState([]);
+    const [orders, setOrders] = useState([]); // Holds fetched orders
+    const [loading, setLoading] = useState(true); // Loading state
+    const [error, setError] = useState(null); // Error handling
 
-    const addCard = () => {
-        setCards([...cards, {id: cards.length + 1}])
+    // Fetch orders from the backend
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/orders', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`, // Use token if needed
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch orders');
+                }
+
+                const data = await response.json();
+                setOrders(data.orders); // Assuming the response is { orders: [...] }
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOrders();
+    }, []);
+
+    if (loading) {
+        return <div className="loading">Loading...</div>;
     }
 
-    const removeCard = (id) => {
-        setCards(cards.filter((card) => card.id !== id));
+    if (error) {
+        return <div className="error">Error: {error}</div>;
     }
 
-    const containerHeight = cards.length >1 ?  (cards.length-1) : 1; 
-    //this line records the number of cards present above 1, because 1 is the default amount of cards in the container
+    const containerHeight = orders.length > 1 ? orders.length * 21.5 + 60 : 81.5;
 
     return(
         <div className='container' style= {{
@@ -24,20 +52,18 @@ function Container (){
             //This line adjusts the height of the container according to the number of cards present in it, the default amount of cards here is 1
         }}>
             <p className="order-list-text">Order History</p>
-
-            <Card status="Ongoing"/>
-            <Card status="Completed"/>
-
-
-
-
-            
-
            
+            {orders.map((order) => (
+                <Card
+                    orderID={order.orderId}
+                    restaurantName={order.restaurantName}
+                    orderDate={order.createdAt}
+                    status={order.status}
+                    totalPrice={order.totalPrice}
+                />
+            ))}
 
-            
-
-            <Link to ="/" className='return-button'>
+            <Link to ="/homepage" className='return-button'>
                 <p className='reutn-text'>Return</p>
             </Link>
         </div>

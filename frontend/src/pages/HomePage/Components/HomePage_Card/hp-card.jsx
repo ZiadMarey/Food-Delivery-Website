@@ -17,13 +17,13 @@ import VeganPic from './Components/Vegan.jpg'
 
 function HP_Card(props) {
  
-  const { restName, restDescription, openHours, closeHours } = props;
+  const {restID, restName, restDescription, openHours, closeHours } = props;
 
   return (
     <div className="container-card">
 
       {/* added link to respective restaurant */}
-      <Link to={`/restaurant/${props.restName}`} state={{restName, restDescription, openHours, closeHours}} className = 'card-link'>
+      <Link to={`/restaurant/${props.restID}`} state={{restID, restName, restDescription, openHours, closeHours}} className = 'card-link'>
       
       <div className='image-section'>
           {(() =>{
@@ -60,16 +60,12 @@ function HP_Card(props) {
       </div>
         
       <div className="description">
-        <p>Restaurant Name: {props.restName} </p>
-        <p>Description: {props.restDescription}</p>
+        <p>{props.restName} </p>
+        <p>{props.restDescription}</p>
         <p>
-          Opening Hours: {Math.floor(props.openHours / 10) == 0 ? "0" : ""}
-          {props.openHours}
-          {props.openHours == null ? "" : ":00 "} 
+          Opening Hours: {openHours} 
           -
-          {Math.floor(props.closeHours / 10) == 0 ? " 0" : " "}
-          {props.closeHours}
-          {props.closeHours == null ? "" : ":00"}
+          {closeHours}
         </p>
       </div>
       </Link>

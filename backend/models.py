@@ -118,6 +118,7 @@ class Order(db.Model):
     status = db.Column(db.Enum('pending', 'confirmed', 'declined', 'completed'), nullable=False, default='pending')
     created_at = db.Column(db.DateTime, nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     restaurant = db.relationship('Restaurant', backref=db.backref('orders', lazy=True))
 
     def to_json(self):
@@ -149,6 +150,7 @@ class OrderItem(db.Model):
             "orderId": self.order_id,
             "foodId": self.food_id
         }
+
 
     
 
