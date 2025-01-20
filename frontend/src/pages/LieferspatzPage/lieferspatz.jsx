@@ -1,5 +1,6 @@
 import "./lieferspatz.css";
 import Logo from "./assets/logoPlaceHolder.png";
+import MainHeader from "../../Componenets/New_Header/new-header";
 import { useState, useEffect } from 'react';
 
 function LiferspatzPage() {

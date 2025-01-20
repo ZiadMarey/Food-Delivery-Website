@@ -1,12 +1,13 @@
 import RestOrderContainer from "./RestOrderContainer/r-order-container";
-
+import MainHeader from "../../Componenets/New_Header/new-header";
 
 function RestOrderPage(){
 
     return(
         <>
-        
-        <RestOrderContainer> </RestOrderContainer>
+            <MainHeader />
+            <RestOrderContainer /> 
+
         
         </>
     );

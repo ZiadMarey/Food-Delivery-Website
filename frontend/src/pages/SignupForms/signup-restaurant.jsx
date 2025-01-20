@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import './signup-restaurant.css';
 import {useNavigate} from "react-router-dom";
+import MainHeaderPlain from '../../Componenets/New_Header_Plain/new-header-plain';
 
 
 
@@ -70,9 +71,11 @@ function SignupRestaurant() {
     };
 
     return (
-        <div className="body">
+        <>
+        <MainHeaderPlain />
+        <div className="signup-restaurant-page">
     
-            <div className="bgimage-sr"></div>
+            
             <div className="wrapper-sr">
             <div className="formbox-signup">
             <h2>Create an account</h2>
@@ -115,14 +118,14 @@ function SignupRestaurant() {
                 
                 <button type="submit" className="signup-button" >Sign up</button>
 
-            </form>
-                
+                </form>
+                    
+                </div>
             </div>
+        
+
         </div>
-    
-
-    </div>
-
+    </>
     );
 };
 

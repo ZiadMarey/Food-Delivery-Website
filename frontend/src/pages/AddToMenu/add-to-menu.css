@@ -18,6 +18,7 @@ body{
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 320px;
+    
     text-align: center;
 }
 
@@ -28,6 +29,7 @@ body{
 }
 
 form {
+    height: 200px;
     display: flex;
     flex-direction: column;
 }
@@ -48,6 +50,15 @@ input[type="text"]{
     border-radius: 4px;
     box-sizing: border-box;
 }
+input[type="number"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
 input[type="file"]{
     width: 100%;
@@ -58,7 +69,7 @@ input[type="file"]{
     box-sizing: border-box;
 } 
 
-.add-button {
+.add-button1 {
     background-color: rgb(255, 242, 197);
     color: #000000;
     border: none;
@@ -68,6 +79,6 @@ input[type="file"]{
     font-size: 16px;
 }
 
-.add-button:hover {
-    background-color: rgb(206, 195, 159);
+.add-button1:hover {
+    background-color: rgb(203, 186, 130);
 }

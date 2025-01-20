@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserIcon from './assets/profilePlaceholder.svg'; 
 import { useNavigate, Link } from "react-router-dom";
+import MainHeader from "../../Componenets/New_Header/new-header.jsx";
 
 import './profile-page.css';
 import NameCard from './Components/Name_Card.jsx';
@@ -116,6 +117,7 @@ function ProfilePage() {
 
   return (
     <>
+      <MainHeader />
       <div className="profile-content">
         <div className="left-section">
           <div className="profile-image-placeholder">

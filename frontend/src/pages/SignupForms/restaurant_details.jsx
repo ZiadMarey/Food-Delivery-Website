@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './restaurant_details.css'; // Use the updated CSS
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import MainHeaderPlain from '../../Componenets/New_Header_Plain/new-header-plain';
 
 function RestaurantDetails() {
     const location = useLocation();
@@ -87,78 +88,81 @@ function RestaurantDetails() {
     };
 
     return (
-        <div className="body">
-            <div className="bgimage-sc"></div>
-            <div className="wrapper">
-                <div className="formbox-signup">
-                    <h2>Give your restaurant details</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="input-box">
-                            <label htmlFor="description">Restaurant Description</label>
-                            <textarea
-                                id="description"
-                                name="description"
-                                value={formData.description}
-                                onChange={handleInputChange}
-                                required
-                                rows="3"
-                            ></textarea>
-                        </div>
-                        <div className="input-group">
+        <>
+            <MainHeaderPlain />
+            <div className="details-restaurant-page">
+                
+                <div className="wrapper">
+
+                        <h2>Give your restaurant details</h2>
+                        <form onSubmit={handleSubmit}>
                             <div className="input-box">
-                                <label htmlFor="openingHours">Opening Hours</label>
-                                <input
-                                    id="openingHours"
-                                    type="time"
-                                    name="openingHours"
-                                    value={formData.openingHours}
+                                <label htmlFor="description">Restaurant Description</label>
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    value={formData.description}
                                     onChange={handleInputChange}
                                     required
-                                />
+                                    rows="3"
+                                ></textarea>
                             </div>
-                            <div className="input-box">
-                                <label htmlFor="closingHours">Closing Hours</label>
-                                <input
-                                    id="closingHours"
-                                    type="time"
-                                    name="closingHours"
-                                    value={formData.closingHours}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="input-box">
-                            <label>Delivery Zip Codes</label>
-                            {formData.zipCodes.map((zip, index) => (
-                                <div key={index} className="zip-code-group">
+                            <div className="input-group">
+                                <div className="input-box">
+                                    <label htmlFor="openingHours">Opening Hours</label>
                                     <input
-                                        type="text"
-                                        value={zip}
-                                        onChange={(e) => handleZipCodeChange(index, e.target.value)}
+                                        id="openingHours"
+                                        type="time"
+                                        name="openingHours"
+                                        value={formData.openingHours}
+                                        onChange={handleInputChange}
                                         required
                                     />
-                                    {index > 0 && (
-                                        <button
-                                            type="button"
-                                            onClick={() => removeZipCodeField(index)}
-                                            className="remove-button"
-                                        >
-                                            Remove
-                                        </button>
-                                    )}
                                 </div>
-                            ))}
-                            <button type="button" onClick={addZipCodeField} className="add-button">
-                                Add More
-                            </button>
-                        </div>
-                        {errormsg && <p className="error-message" aria-live="assertive">{errormsg}</p>}
-                        <button type="submit" className="signup-button">Complete</button>
-                    </form>
+                                <div className="input-box">
+                                    <label htmlFor="closingHours">Closing Hours</label>
+                                    <input
+                                        id="closingHours"
+                                        type="time"
+                                        name="closingHours"
+                                        value={formData.closingHours}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="input-box">
+                                <label>Delivery Zip Codes</label>
+                                {formData.zipCodes.map((zip, index) => (
+                                    <div key={index} className="zip-code-group">
+                                        <input
+                                            type="text"
+                                            value={zip}
+                                            onChange={(e) => handleZipCodeChange(index, e.target.value)}
+                                            required
+                                        />
+                                        {index > 0 && (
+                                            <button
+                                                type="button"
+                                                onClick={() => removeZipCodeField(index)}
+                                                className="remove-button"
+                                            >
+                                                Remove
+                                            </button>
+                                        )}
+                                    </div>
+                                ))}
+                                <button type="button" onClick={addZipCodeField} className="add-button">
+                                    Add More
+                                </button>
+                            </div>
+                            {errormsg && <p className="error-message" aria-live="assertive">{errormsg}</p>}
+                            <button type="submit" className="signup-button">Complete</button>
+                        </form>
+
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
