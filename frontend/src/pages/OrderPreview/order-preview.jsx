@@ -6,7 +6,7 @@ import MainHeader from '../../Componenets/New_Header/new-header.jsx';
 function OrderPreview(){
     return(
         <>
-            
+            <MainHeader />
             <div className='order-preview'>
                 
                 <CardContainer />

@@ -71,9 +71,11 @@ function SignupRestaurant() {
     };
 
     return (
-        <div className="body">
+        <>
+        <MainHeaderPlain />
+        <div className="signup-restaurant-page">
     
-            <div className="bgimage-sr"></div>
+            
             <div className="wrapper-sr">
             <div className="formbox-signup">
             <h2>Create an account</h2>

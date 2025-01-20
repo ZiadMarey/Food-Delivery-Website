@@ -62,10 +62,9 @@ function SignupCustomer() {
     return (
         <>
             <MainHeaderPlain />
-            <div className="body">
-                <div className="bgimage-sc"></div>
+            <div className="signup-customer-page">
+                
                 <div className="wrapper">
-                    <div className="formbox-signup">
                         <h2>Create an account</h2>
                         <p className="signin-text">
                             Already have an account? <Link to="/logincus">Sign in</Link>
@@ -109,7 +108,7 @@ function SignupCustomer() {
                             <button type="submit" className="signup-button">Sign up</button>
                         </form>
                     </div>
-                </div>
+                
             </div>
         </>
     );
