@@ -152,7 +152,19 @@ class OrderItem(db.Model):
         }
 
 
+class Lieferspatz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    balance = db.Column(db.Float, nullable=False)
     
+
+    def to_json(self):
+        return{
+            "id" : self.id,
+            "Balance" : self.balance,
+            
+        }
+
+
 
 class BlacklistedToken(db.Model):
     id = db.Column(db.Integer, primary_key=True)
