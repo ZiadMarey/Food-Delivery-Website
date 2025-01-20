@@ -2,6 +2,7 @@ import './rest-profile-page1.css';
 import UserIcon from "./assets/profilePlaceholder2.svg";
 import { useNavigate, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import MainHeader from '../../Componenets/New_Header/new-header';
 
 
 function RestaurantProfilePage() {
@@ -105,6 +106,8 @@ function RestaurantProfilePage() {
     }
 
     return (
+      <>
+      <MainHeader />
       <div className="center-wrapper">
         <div className="profile-page-container">
           <div className="profile-image-container">
@@ -139,6 +142,7 @@ function RestaurantProfilePage() {
           </div>
         </div>
       </div>
+      </>
     );
 }
 

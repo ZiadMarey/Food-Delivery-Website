@@ -26,7 +26,7 @@ function App() {
   return (
     <Router>
       
-      <MainHeader />
+      
 
       <Routes>        
         <Route path="/" element={<StartPage/>} />

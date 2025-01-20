@@ -1,6 +1,7 @@
 import './login-customer.css';
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import MainHeaderPlain from '../../../Componenets/New_Header_Plain/new-header-plain';
 
 const LoginCustomer = () => {
   const [username, setUsername] = useState("");
@@ -51,45 +52,48 @@ const LoginCustomer = () => {
   };
 
   return (
-    <div className="body1">
-      <div className="bgimage-c"></div>
-      <div className="wrapper-c">
-        <div className="login-box-c">Login as Customer</div>
-        <form onSubmit={handleLogin}>
-          <div className="input-box-c">
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <label>Email</label>
-          </div>
-          <div className="input-box-c">
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <label>Password</label>
-          </div>
-          {error && <p className="error-message">{error}</p>}
-          <button
-            type="submit"
-            className="signin-button-c"
-            disabled={isLoading}
-          >
-            {isLoading ? "Signing In..." : "Sign In"}
-          </button>
-          <div className="signup-text-c">
-            Don't have an account? <Link to="/signupres">Sign Up</Link>
-          </div>
-        </form>
+    <>
+    <MainHeaderPlain />
+      <div className="body1">
+        <div className="bgimage-c"></div>
+        <div className="wrapper-c">
+          <div className="login-box-c">Login as Customer</div>
+          <form onSubmit={handleLogin}>
+            <div className="input-box-c">
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <label>Email</label>
+            </div>
+            <div className="input-box-c">
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <label>Password</label>
+            </div>
+            {error && <p className="error-message">{error}</p>}
+            <button
+              type="submit"
+              className="signin-button-c"
+              disabled={isLoading}
+            >
+              {isLoading ? "Signing In..." : "Sign In"}
+            </button>
+            <div className="signup-text-c">
+              Don't have an account? <Link to="/signupres">Sign Up</Link>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

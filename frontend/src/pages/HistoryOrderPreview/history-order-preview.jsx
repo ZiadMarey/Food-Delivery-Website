@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import './history-order-preview.css';
 import CardContainer from './Components/Container/Container.jsx';
+import MainHeader from "../../Componenets/New_Header/new-header.jsx";
 
 export const UserContext = createContext();
 
@@ -54,12 +55,15 @@ function OrderPreview() {
     }
 
     return (
-        <div className="order-preview">
-            {/* Provide order data via context */}
-            <UserContext.Provider value={orderData}>
-                <CardContainer />
-            </UserContext.Provider>
-        </div>
+        <>
+        <MainHeader />
+            <div className="order-preview">
+                {/* Provide order data via context */}
+                <UserContext.Provider value={orderData}>
+                    <CardContainer />
+                </UserContext.Provider>
+            </div>
+        </>
     );
 }
 

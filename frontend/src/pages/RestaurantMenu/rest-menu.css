@@ -9,14 +9,37 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px; /* Add space below the header */
+    background-color: rgb(255, 242, 197);
+    width: 98%;
+    justify-self: center;
+    
 }
 
 /* Ensure h1 and button have no extra margins */
 .header-container h1 {
     margin: 0;
+    position: relative;
+    left: 5%;
+    margin: 20px 0 20px 0;
+    font-size: 50px;
+    
 }
 
-.new-item-button {
+.close{
+    background-color: rgb(255, 242, 197);
+    color: #000000;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.close:hover{
+    background-color: red;
+}
+
+.new-item-button1 {
     margin-left: 10px;
     padding: 10px 15px; /* Add padding inside the button */
     border: none; /* Optional: Remove default button border */
@@ -24,6 +47,11 @@
     color: white; /* White text for contrast */
     border-radius: 5px; /* Slight rounded corners */
     cursor: pointer;
+    width: 10%;
+    height: 50px;
+    border-width: 50px;
+    position: relative;
+    right: 50px;
 }
 
 .new-item-button:hover {

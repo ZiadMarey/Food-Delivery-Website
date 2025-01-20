@@ -57,7 +57,7 @@ function AddToMenu({ existingFood = {}, updateCallback }) {
                     onChange={(e) => setFoodPrice(e.target.value)}
                 />
 
-                <button type="submit" class="add-button">Add</button>
+                <button type="submit" class="add-button1">Add</button>
             </form>
         </div>
     </div>
