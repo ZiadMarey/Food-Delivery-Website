@@ -242,7 +242,7 @@ def get_profile():
 def get_user_type():
     current_user = get_jwt_identity()
     user = User.query.filter_by(id=current_user["id"]).first()
-    user_type({"userType"=user.user_type})
+    user_type = ({"userType":user.user_type})
 
     return jsonify(user_type), 200
 
