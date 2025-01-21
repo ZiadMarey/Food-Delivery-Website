@@ -20,7 +20,7 @@
 }
 
 .page-logo{
-    height: 500px;
+    height: 550px;
     width: 500px;
     position: relative;
     bottom: 100px;
@@ -31,4 +31,8 @@
     bottom: 20%;
     font-size: 40px;
     font-family: 'Poppins', sans-serif;
+}
+
+.balance-text{
+    color: rgb(5, 98, 98);
 }

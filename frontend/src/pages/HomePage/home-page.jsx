@@ -1,6 +1,7 @@
 import Card from "./Components/HomePage_Card/hp-card.jsx";
 import React, { useState, useEffect } from "react";
 import "./home-page.css";
+import MainHeader from "../../Componenets/New_Header/new-header.jsx";
 
 function HomePage() {
 
@@ -46,23 +47,26 @@ function HomePage() {
 
   
   return (
-    <div className="home-page">
+    <>
+      <MainHeader />
+      <div className="home-page">
 
 
-      {/* add zipcode to display which area*/}
-      <p className="restArea"> Restaurants in your area </p>
-      <div className="card-pool">
-        {restaurants.map((restaurant) => (
-          <Card
-            restID={restaurant.id}
-            restName={restaurant.restaurantName}
-            restDescription={restaurant.description}
-            openHours={restaurant.openingHours[0]?.openingTime || "N/A"}
-            closeHours={restaurant.openingHours[0]?.closingTime || "N/A"}
-          />
-        ))}
+        {/* add zipcode to display which area*/}
+        <p className="restArea"> Restaurants in your area </p>
+        <div className="card-pool">
+          {restaurants.map((restaurant) => (
+            <Card
+              restID={restaurant.id}
+              restName={restaurant.restaurantName}
+              restDescription={restaurant.description}
+              openHours={restaurant.openingHours[0]?.openingTime || "N/A"}
+              closeHours={restaurant.openingHours[0]?.closingTime || "N/A"}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default HomePage;

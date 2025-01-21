@@ -10,8 +10,29 @@
 }
 
 .food-name {
-    font-size: 16px;
+    font-size: 20px;
     color: #000000;
+}
+
+.item-name1{
+    font-size: 25px;
+    font-weight: bold;
+    display:inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.food-price{
+    font-size: 20px;
+    color: #000000;
+}
+
+.item-price1{
+    font-size: 25px;
+    font-weight: bold;
+    display:inline-block;
+    margin: 0;
+    padding: 0;
 }
 
 .actions {

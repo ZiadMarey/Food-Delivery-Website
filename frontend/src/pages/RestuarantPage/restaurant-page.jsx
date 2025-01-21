@@ -4,6 +4,7 @@ import ItemsCard from "./ItemComponents/items.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./restaurant-page.css";
 import rest from "./assets/italian.jpg";
+import MainHeader from "../../Componenets/New_Header/new-header.jsx";
 
 import ChinesePic from "./NewAssets/Chinese.jpg";
 import ArabicPic from "./NewAssets/Arabic.png";
@@ -95,6 +96,7 @@ function RestaurantPage() {
 
   return (
     <>
+      <MainHeader />
       <div className="restaurant-label">
         <div className="restaurant-img">
           <img

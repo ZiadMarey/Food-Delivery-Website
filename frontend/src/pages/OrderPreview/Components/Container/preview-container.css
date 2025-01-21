@@ -72,3 +72,9 @@
 .submit-button{
     margin: 4% 0 0 7%;
 }
+
+.empty-cart-message{
+    align-items: center;
+    font-size: 30px;
+    color: rgb(255, 242, 197);
+}

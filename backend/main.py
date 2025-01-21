@@ -1,6 +1,6 @@
 from flask import request, jsonify, session
 from config import app, db
-from models import Food , User, Restaurant, OpeningHours, DeliveryArea, Customer, Order, OrderItem, BlacklistedToken
+from models import Food , User, Restaurant,Lieferspatz ,OpeningHours, DeliveryArea, Customer, Order, OrderItem, BlacklistedToken
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from datetime import timedelta
@@ -242,7 +242,7 @@ def get_profile():
 def get_user_type():
     current_user = get_jwt_identity()
     user = User.query.filter_by(id=current_user["id"]).first()
-    user_type = ({"userType":user.user_type})
+    user_type({"userType":user.user_type})
 
     return jsonify(user_type), 200
 
@@ -349,7 +349,15 @@ def create_order():
     customer.account_balance -= total_price
 
     # Add 80% of the total price to the restaurant's account balance
-    restaurant.account_balance += total_price * 0.8
+    restaurant.account_balance += total_price * 0.86
+    lieferspatz = Lieferspatz.query.first()
+    if not lieferspatz:
+         lieferspatz = Lieferspatz(balance=0)  # Create a new Lieferspatz record if it doesn't exist
+         db.session.add(lieferspatz)
+         db.session.commit()
+
+    # Update Lieferspatz balance
+    lieferspatz.balance += total_price * 0.15
 
     try:
         # Create the order
@@ -383,6 +391,23 @@ def create_order():
     except Exception as e:
         db.session.rollback()
         return jsonify({"message": str(e)}), 500
+    
+
+#liefer
+@app.route("/lieferspatz_balance", methods=["GET"])
+@jwt_required()
+def get_lieferspatz_balance():
+    # Assuming Lieferspatz has only one record
+    lieferspatz = Lieferspatz.query.first()
+
+    if not lieferspatz:
+        lieferspatz = Lieferspatz(balance=0)  # Create a new Lieferspatz record if it doesn't exist
+        db.session.add(lieferspatz)
+        db.session.commit()
+
+    return jsonify({"balance": lieferspatz.balance}), 200
+
+    
 
 @app.route("/orders", methods=["GET"])
 @jwt_required()

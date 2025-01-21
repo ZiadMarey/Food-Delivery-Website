@@ -1,9 +1,11 @@
 import React from "react";
 import './start.css';
+import MainHeaderPlain from "../../Componenets/New_Header_Plain/new-header-plain.jsx";
 
 function StartPage() {
     return (
         <>
+            <MainHeaderPlain />
             <div className="page">
                 <a href="/signupcus">
                     <button className="choice-button1">
