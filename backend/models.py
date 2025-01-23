@@ -131,7 +131,8 @@ class Order(db.Model):
             "status": self.status,
             "createdAt": self.created_at,
             "restaurantId": self.restaurant_id,
-            "notification_status": True
+            "notification_status": True,
+            "customerId" : self.customer_id
         }
     
 # OrderItem Table

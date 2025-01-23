@@ -18,9 +18,11 @@ function RestOrderCard({orderID, restaurantName, orderDate, status, totalPrice})
                     >
                         View order details
                   </Link>
-                  <Link to ="/userprofileplain" className="customer-profile-details"> {/* need to change this when we do a version without logout and acc balance*/}
-                    <p className='view-details'>View Customer Details</p>
-                  </Link>
+                  <Link 
+                              to={`/userprofileplain/${orderID}`} 
+                              className="customer-profile-details">
+                                <p className='view-details'>View Customer Details</p>
+                    </Link>
 
                 </div>
                 <div className = "confirm-reject" > 

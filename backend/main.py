@@ -238,6 +238,39 @@ def get_profile():
 
     return jsonify(profile_data), 200
 
+
+#for restaurant to view the profile of the customer 
+@app.route("/customer-profile/<int:order_id>", methods=["GET"])
+@jwt_required()
+def get_customer_profile(order_id):
+    # Get the restaurant user making the request
+    current_user = get_jwt_identity()
+    restaurant = Restaurant.query.filter_by(user_id=current_user["id"]).first()
+    
+    if not restaurant:
+        return jsonify({"message": "Unauthorized"}), 403
+
+    # Get the order and verify it's related to the restaurant
+    order = Order.query.filter_by(id=order_id, restaurant_id=restaurant.id).first()
+
+    if not order:
+        return jsonify({"message": "Order not found"}), 404
+
+    # Fetch the customer linked to the order
+    customer = Customer.query.filter_by(id=order.customer_id).first()
+    if not customer:
+        return jsonify({"message": "Customer not found"}), 404
+
+    # Return customer details
+    return jsonify({
+        "firstName": customer.first_name,
+        "lastName": customer.last_name,
+        "email": customer.user.email,
+        "address": customer.address,
+        "postalCode": customer.postal_code,
+        "accountBalance": customer.account_balance,
+    }), 200
+
 @app.route("/get-user-type", methods=["GET"])
 @jwt_required()
 def get_user_type():

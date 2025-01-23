@@ -18,7 +18,7 @@ import LoginCustomer from "./pages/LoginForms/LoginCustomer/login-customer.jsx"
 import LoginRestaurant from "./pages/LoginForms/LoginRestaurant/login-restaurant.jsx"
 import RestaurantDetails from "./pages/SignupForms/restaurant_details.jsx";
 import StartPage from "./pages/Start/start.jsx";
-import PlainUserProfile from "./pages/UserProfilePage_Plain/profile-page.jsx"
+import PlainUserProfile from "./pages/UserProfilePage_Plain/profile-page-plain.jsx"
 import LieferspatzPage from "./pages/LieferspatzPage/lieferspatz.jsx";
 
 function App() {  
@@ -39,7 +39,7 @@ function App() {
         <Route path="/restorders" element={<RestOrderPage />} />
         <Route path="/restprofile" element={<RestaurantProfilePage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/userprofileplain" element={<PlainUserProfile />} />
+        <Route path="/userprofileplain/:orderID" element={<PlainUserProfile />} />
         <Route path="/lieferspatzpage" element={<LieferspatzPage />} />
         
         <Route path="/restaurant/:restName" element={<RestaurantPage />} />
