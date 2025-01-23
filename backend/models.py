@@ -112,6 +112,7 @@ class DeliveryArea(db.Model):
 # Order Table
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    notification_status = db.Column(db.Boolean, default=False) 
     customer_name = db.Column(db.String(100), nullable=False)
     customer_address = db.Column(db.String(255), nullable=False)
     total_price = db.Column(db.Float, nullable=False)
@@ -129,7 +130,8 @@ class Order(db.Model):
             "totalPrice": self.total_price,
             "status": self.status,
             "createdAt": self.created_at,
-            "restaurantId": self.restaurant_id
+            "restaurantId": self.restaurant_id,
+            "notification_status": True
         }
     
 # OrderItem Table

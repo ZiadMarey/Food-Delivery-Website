@@ -88,7 +88,7 @@ const LoginCustomer = () => {
               {isLoading ? "Signing In..." : "Sign In"}
             </button>
             <div className="signup-text-c">
-              Don't have an account? <Link to="/signupres">Sign Up</Link>
+              Don't have an account? <Link to="/signupcus">Sign Up</Link>
             </div>
           </form>
         </div>

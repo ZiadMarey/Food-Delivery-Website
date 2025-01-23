@@ -4,3 +4,4 @@ Flask-SQLAlchemy
 Flask-Cors
 Werkzeug
 PyJWT == 2.6
+flask-socketio

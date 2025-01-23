@@ -55,7 +55,7 @@ function SignupCustomer() {
             } else {
                 console.log('Form submitted successfully');
             }
-            navigate("/");
+            navigate("/logincus");
         }
     };
 

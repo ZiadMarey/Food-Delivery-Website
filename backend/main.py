@@ -5,9 +5,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from datetime import timedelta
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity, get_jwt
+from flask_socketio import SocketIO
 
 jwt = JWTManager(app)
-
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -242,7 +243,7 @@ def get_profile():
 def get_user_type():
     current_user = get_jwt_identity()
     user = User.query.filter_by(id=current_user["id"]).first()
-    user_type({"userType":user.user_type})
+    user_type = ({"userType":user.user_type})
 
     return jsonify(user_type), 200
 
@@ -369,6 +370,7 @@ def create_order():
             status="pending",
             created_at=datetime.utcnow(),
             restaurant_id=restaurant_id,
+            notification_status = True
         )
 
         db.session.add(new_order)
@@ -385,12 +387,24 @@ def create_order():
             db.session.add(new_order_item)
 
         db.session.commit()
+        socketio.emit('new_order', new_order.to_json(), namespace='/restprofile')
 
-        return jsonify({"message": "Order created successfully", "orderId": new_order.id}), 201
+        # Emit socket event with order details
+        order_data = {
+            'id': new_order.id,
+            'restaurant_id': restaurant_id,
+            'total': total_price
+        }
+        print("Emitting new order:", order_data) # Debug log
+        socketio.emit('new_order', order_data)
+
+        return jsonify({"message": "Order created successfully"}), 201
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({"message": str(e)}), 500
+        return jsonify({"error": str(e)}), 500
+    
+
     
 
 #liefer
@@ -817,6 +831,25 @@ def update_opening_hours(hours_id):
         db.session.rollback()
         return jsonify({"message": str(e)}), 400
 
+
+#restaurant notification
+@app.route("/restaurant_notifications", methods=["GET"])
+@jwt_required()
+def restaurant_notifications():
+    current_user = get_jwt_identity()
+    restaurant_id = current_user['id']  # Extract the actual ID value
+    
+    # Get the restaurant for this user
+    restaurant = Restaurant.query.filter_by(user_id=restaurant_id).first()
+    if not restaurant:
+        return jsonify({"message": "Restaurant not found"}), 404
+        
+    orders = Order.query.filter_by(
+        restaurant_id=restaurant.id, 
+        notification_status=True
+    ).all()
+    
+    return jsonify([order.to_json() for order in orders]), 200
 
 if __name__ == "__main__":
     with app.app_context():
