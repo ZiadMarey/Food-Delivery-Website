@@ -29,12 +29,15 @@ function LiferspatzPage() {
     }, []); // Empty dependency array ensures this runs once when the component mounts
 
     return (
+        <>
+        <MainHeader></MainHeader>
         <div className="page-div">
             <img src={Logo} alt="Lieferspatz's Logo" className="page-logo" />
             <div className="info-section">
                 <p className="balance-text">Current Balance: {balance.toFixed(2)} EUR</p> {/* Display the balance */}
             </div>
         </div>
+        </>
     );
 }
 

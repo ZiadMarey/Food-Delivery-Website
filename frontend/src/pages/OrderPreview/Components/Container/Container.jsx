@@ -9,6 +9,7 @@ import './preview-container.css';
 function Container() {
     const [cards, setCards] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [note, setNote] = useState('');
     const navigate = useNavigate();
     
     const addCard = () => {
@@ -71,6 +72,7 @@ function Container() {
                 quantity: item.quantity,
             })),
             totalPrice: cart.reduce((total, item) => total + item.price * item.quantity, 0),
+            note: note,
         };
     
         const token = localStorage.getItem('token'); // Get the user's token
@@ -129,7 +131,7 @@ function Container() {
                             removeCard={() => removeCard(card.itemID)}
                         />
                     ))}
-                    <NotesCard />
+                    <NotesCard note={note} setNote={setNote}/>
                     <TotalCard totalPrice={totalPrice} />
                 </>
             )}
