@@ -70,7 +70,6 @@ class Food(db.Model):
     food_name = db.Column(db.String(32), unique = False, nullable = False)
     food_description = db.Column(db.Text, nullable=True)
     food_price = db.Column(db.Integer, unique = False, nullable = False)
-    image = db.Column(db.String(255), nullable=True)  # Optional image path
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
     restaurant = db.relationship('Restaurant', backref=db.backref('foods', lazy=True))
 
