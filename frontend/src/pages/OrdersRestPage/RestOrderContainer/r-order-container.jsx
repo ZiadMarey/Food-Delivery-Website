@@ -29,7 +29,25 @@ function RestOrderContainer (){
                     }
     
                     const data = await response.json();
-                    setOrders(data.orders); 
+                // Sorting logic: pending on top, then confirmed, then completed/declined, newest to oldest
+                const sortedOrders = data.orders.sort((a, b) => {
+                    const statusOrder = {
+                        pending: 1,
+                        confirmed: 2,
+                        completed: 3,
+                        declined: 4,
+                    };
+
+                    // First, sort by status
+                    if (statusOrder[a.status] !== statusOrder[b.status]) {
+                        return statusOrder[a.status] - statusOrder[b.status];
+                    }
+
+                    // If statuses are the same, sort by creation date (newest to oldest)
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                });
+
+                    setOrders(sortedOrders);
                 } catch (err) {
                     setError(err.message);
                 } finally {
@@ -49,6 +67,7 @@ function RestOrderContainer (){
         }
     
         const containerHeight = orders.length > 1 ? orders.length * 21.5 + 60 : 81.5;
+
     ; 
     //this line records the number of cards present above 1, because 1 is the default amount of cards in the container
 

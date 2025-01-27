@@ -15,12 +15,13 @@ import IndianPic from "./NewAssets/Indian.jpg";
 import MexicanPic from "./NewAssets/Mexican.jpg";
 import BreakfastPic from "./NewAssets/Breakfast.png";
 import VeganPic from "./NewAssets/Vegan.jpg";
+import TurkishPic from "../HomePage/Components/HomePage_Card/Components/Turkish.jpg";
 
 function RestaurantPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const token = localStorage.getItem("token");
-  const { restID, restName, restDescription, openHours, closeHours } = location.state;
+  const { restID, restName, restDescription, openHours, closeHours, restType } = location.state;
 
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,7 +60,7 @@ function RestaurantPage() {
   
 
   const getRestaurantImage = () => {
-    switch (restDescription) {
+    switch (restType) {
       case "Chinese":
         return ChinesePic;
 
@@ -88,6 +89,9 @@ function RestaurantPage() {
 
       case "Vegan":
         return VeganPic;
+
+      case "Turkish":
+        return TurkishPic;
 
       default:
         return rest; // Default image incase 
@@ -124,10 +128,10 @@ function RestaurantPage() {
       {menu.map((item) => (
           <ItemsCard
             itemID={item.id}
-            itemName={item.foodName} // Based on your Food model's fields
+            itemName={item.foodName} 
             //itemType={item.type} // Add type if available in the backend response
             restID={restID}
-            price={item.foodPrice} // Based on your Food model's fields
+            price={item.foodPrice}
             restaurantName={restName}
           />
         ))}

@@ -47,8 +47,9 @@ class Restaurant(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     restaurant_name = db.Column(db.String(80), unique=True, nullable=False)
     address = db.Column(db.String(120), nullable=False)
-    postal_code = db.Column(db.Integer, nullable=True)
-    description = db.Column(db.Text, nullable=True)
+    postal_code = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    restaurant_type = db.Column(db.String(120), nullable=True)
     account_balance = db.Column(db.Float, nullable=False, default=0)
     opening_hours = db.relationship('OpeningHours', backref='restaurant', lazy=True)
     delivery_areas = db.relationship('DeliveryArea', backref='restaurant', lazy=True)
@@ -118,6 +119,7 @@ class Order(db.Model):
     total_price = db.Column(db.Float, nullable=False)
     status = db.Column(db.Enum('pending', 'confirmed', 'declined', 'completed'), nullable=False, default='pending')
     created_at = db.Column(db.DateTime, nullable=False)
+    note = db.Column(db.Text, nullable=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     restaurant = db.relationship('Restaurant', backref=db.backref('orders', lazy=True))
@@ -130,6 +132,7 @@ class Order(db.Model):
             "totalPrice": self.total_price,
             "status": self.status,
             "createdAt": self.created_at,
+            "note": self.note,
             "restaurantId": self.restaurant_id,
             "notification_status": True,
             "customerId" : self.customer_id

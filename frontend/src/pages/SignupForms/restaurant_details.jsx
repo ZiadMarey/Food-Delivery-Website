@@ -11,6 +11,7 @@ function RestaurantDetails() {
         description: '',
         openingHours: '',
         closingHours: '',
+        restaurantType:'',
         zipCodes: [''], 
     });
 
@@ -43,7 +44,7 @@ function RestaurantDetails() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { description, openingHours, closingHours, zipCodes } = formData;
+        const { description, openingHours, closingHours, restaurantType, zipCodes } = formData;
 
        
         if (!description || !openingHours || !closingHours || zipCodes.some(zip => zip === '')) {
@@ -59,6 +60,7 @@ function RestaurantDetails() {
             description,
             openingHours,
             closingHours,
+            restaurantType,
             zipCodes
         };
 
@@ -79,6 +81,7 @@ function RestaurantDetails() {
                 alert(responseData.message);
             } else {
                 console.log('Restaurant details submitted successfully');
+                localStorage.removeItem("token");
                 navigate("/loginres");
             }
         } catch (error) {
@@ -106,6 +109,28 @@ function RestaurantDetails() {
                                     required
                                     rows="3"
                                 ></textarea>
+                            </div>
+                            <div className="input-box">
+                                <label htmlFor="restaurantType">Restaurant Type</label>
+                                <select
+                                    id="restaurantType"
+                                    name="restaurantType"
+                                    value={formData.restaurantType}
+                                    onChange={handleInputChange}
+                                    required
+                                >
+                                    <option value="">None</option>
+                                    <option value="Chinese">Chinese</option>
+                                    <option value="Arabic">Arabic</option>
+                                    <option value="Asian">Asian</option>
+                                    <option value="Japanese">Japanese</option>
+                                    <option value="Jamaican">Jamaican</option>
+                                    <option value="Indian">Indian</option>
+                                    <option value="Mexican">Mexican</option>
+                                    <option value="Vegan">Vegan</option>
+                                    <option value="Turkish">Turkish</option>
+                                    <option value="Breakfast">Breakfast</option>
+                                </select>
                             </div>
                             <div className="input-group">
                                 <div className="input-box">

@@ -12,22 +12,22 @@ import IndianPic from './Components/Indian.jpg';
 import MexicanPic from './Components/Mexican.jpg';
 import BreakfastPic from './Components/Breakfast.png';
 import VeganPic from './Components/Vegan.jpg'
-
+import TurkishPic from "./Components/Turkish.jpg"
 
 
 function HP_Card(props) {
  
-  const {restID, restName, restDescription, openHours, closeHours } = props;
+  const {restID, restName, restDescription, openHours, closeHours, restType } = props;
 
   return (
     <div className="container-card">
 
       {/* added link to respective restaurant */}
-      <Link to={`/restaurant/${props.restID}`} state={{restID, restName, restDescription, openHours, closeHours}} className = 'card-link'>
+      <Link to={`/restaurant/${props.restID}`} state={{restID, restName, restDescription, openHours, closeHours, restType}} className = 'card-link'>
       
       <div className='image-section'>
           {(() =>{
-              switch (props.restDescription){
+              switch (props.restType){
                 case 'Chinese':
                   return <img className='items-image' src={ChinesePic} alt='Chinese Food Picture' />;
                 
@@ -54,6 +54,9 @@ function HP_Card(props) {
                 
                 case "Vegan":
                   return <img className='items-image' src={VeganPic} alt='Vegan Food Picture' />
+
+                case "Turkish":
+                  return <img className='items-image' src={TurkishPic} alt='Vegan Food Picture' />
               }
             }
           )()}
@@ -61,7 +64,7 @@ function HP_Card(props) {
         
       <div className="description">
         <p>{props.restName} </p>
-        <p>{props.restDescription}</p>
+        <p>{props.restType}</p>
         <p>
           Opening Hours: {openHours} 
           -
@@ -78,6 +81,7 @@ function HP_Card(props) {
 HP_Card.propTypes = {
   restName: PropTypes.string,
   restDescription: PropTypes.string,
+  restType: PropTypes.string,
   openHours: PropTypes.number,
   closeHours: PropTypes.number,
 };

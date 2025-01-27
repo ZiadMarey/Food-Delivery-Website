@@ -98,6 +98,7 @@ def register_restaurant():
     restaurant_name = request.json.get("restaurantName")
     address = request.json.get("address")
     postal_code = request.json.get("postalCode")
+    restaurnat_description = "description"
     account_balance = 0
 
 
@@ -125,6 +126,7 @@ def register_restaurant():
             restaurant_name=restaurant_name,
             address=address,
             postal_code=postal_code,
+            description= restaurnat_description,
             account_balance=account_balance,
         )
 
@@ -144,30 +146,31 @@ def register_restaurant_details():
     data = request.json
     restaurant_id = data.get("restaurantID")
     description = data.get("description")
-    opening_time_str = data.get("openingHours")  # Explicit opening hours as string
-    closing_time_str = data.get("closingHours")  # Explicit closing hours as string
-    zip_codes = data.get("zipCodes")  # List of zip codes
+    opening_time_str = data.get("openingHours")  
+    closing_time_str = data.get("closingHours")  
+    zip_codes = data.get("zipCodes")
+    restaurant_type = data.get("restaurantType")
 
-    # Validate input
+
     if not restaurant_id or not description or not opening_time_str or not closing_time_str or not zip_codes:
         return jsonify({"message": "All fields (restaurantID, description, openingHours, closingHours, zipCodes) are required"}), 400
 
-    # Validate and convert time format (HH:MM -> datetime.time)
+    # convert time format (HH:MM -> datetime.time)
     try:
         opening_time = datetime.strptime(opening_time_str, "%H:%M").time()
         closing_time = datetime.strptime(closing_time_str, "%H:%M").time()
     except ValueError:
         return jsonify({"message": "Invalid time format. Use HH:MM."}), 400
 
-    # Query the restaurant using the restaurant ID
+    
     restaurant = Restaurant.query.get(restaurant_id)
 
     if not restaurant:
         return jsonify({"message": "Restaurant not found"}), 404
 
     try:
-        # Update restaurant description
         restaurant.description = description
+        restaurant.restaurant_type = restaurant_type
 
         # Delete existing opening hours for the restaurant
         OpeningHours.query.filter_by(restaurant_id=restaurant.id).delete()
@@ -238,7 +241,6 @@ def get_profile():
 
     return jsonify(profile_data), 200
 
-
 #for restaurant to view the profile of the customer 
 @app.route("/customer-profile/<int:order_id>", methods=["GET"])
 @jwt_required()
@@ -279,8 +281,6 @@ def get_user_type():
     user_type = ({"userType":user.user_type})
 
     return jsonify(user_type), 200
-
-
 
 @app.route("/homepage", methods=["GET"])
 @jwt_required()
@@ -328,6 +328,7 @@ def load_homepage():
             "address": restaurant.address,
             "postalCode": restaurant.postal_code,
             "description": restaurant.description,
+            "restaurantType": restaurant.restaurant_type,
             "accountBalance": restaurant.account_balance,
             "openingHours": opening_hours
         })
@@ -361,37 +362,38 @@ def create_order():
     restaurant_id = data.get("restaurantID")
     order_items = data.get("orderItems")
     total_price = data.get("totalPrice")
+    note = data.get("note")
 
     if not restaurant_id or not order_items or not total_price:
         return jsonify({"message": "Incomplete order data"}), 400
 
-    # Check if the restaurant exists
+    # check if the restaurant exists
     restaurant = Restaurant.query.get(restaurant_id)
     if not restaurant:
         return jsonify({"message": "Restaurant not found"}), 404
 
-    # Fetch the customer's account balance
+    # fetch the customer's account balance
     customer = Customer.query.filter_by(user_id=user.id).first()
     if not customer:
         return jsonify({"message": "Customer details not found"}), 404
 
-    # Check if the customer has enough balance
+    # check if the customer has enough balance
     if customer.account_balance < total_price:
         return jsonify({"message": "Insufficient balance"}), 400
 
-    # Deduct total price from customer's account balance
-    customer.account_balance -= total_price
+    # deduct total price from customer's account balance
+    customer.account_balance = round(customer.account_balance - total_price, 2)
 
-    # Add 80% of the total price to the restaurant's account balance
-    restaurant.account_balance += total_price * 0.86
+    # 85% of the total price to the restaurant's account balance
+    restaurant.account_balance = round(restaurant.account_balance + total_price * 0.85, 2)
     lieferspatz = Lieferspatz.query.first()
     if not lieferspatz:
-         lieferspatz = Lieferspatz(balance=0)  # Create a new Lieferspatz record if it doesn't exist
+         lieferspatz = Lieferspatz(balance=0)  # if it doesn't exist
          db.session.add(lieferspatz)
          db.session.commit()
 
     # Update Lieferspatz balance
-    lieferspatz.balance += total_price * 0.15
+    lieferspatz.balance = round(lieferspatz.balance + total_price * 0.15, 2)
 
     try:
         # Create the order
@@ -402,6 +404,7 @@ def create_order():
             total_price=total_price,
             status="pending",
             created_at=datetime.utcnow(),
+            note=note,
             restaurant_id=restaurant_id,
             notification_status = True
         )
@@ -437,25 +440,6 @@ def create_order():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
     
-
-    
-
-#liefer
-@app.route("/lieferspatz_balance", methods=["GET"])
-@jwt_required()
-def get_lieferspatz_balance():
-    # Assuming Lieferspatz has only one record
-    lieferspatz = Lieferspatz.query.first()
-
-    if not lieferspatz:
-        lieferspatz = Lieferspatz(balance=0)  # Create a new Lieferspatz record if it doesn't exist
-        db.session.add(lieferspatz)
-        db.session.commit()
-
-    return jsonify({"balance": lieferspatz.balance}), 200
-
-    
-
 @app.route("/orders", methods=["GET"])
 @jwt_required()
 def orders():
@@ -582,6 +566,7 @@ def get_order_details(order_id):
             "restaurantId": restaurant.id if restaurant else None,
             "totalPrice": order.total_price,
             "status": order.status,
+            "note": order.note,
             "createdAt": order.created_at.strftime("%Y-%m-%d %H:%M:%S"),
             "items": items,
         }
@@ -619,6 +604,7 @@ def get_order_details(order_id):
             "customerAddress": order.customer_address,
             "totalPrice": order.total_price,
             "status": order.status,
+            "note":order.note,
             "createdAt": order.created_at.strftime("%Y-%m-%d %H:%M:%S"),
             "items": items,
         }
@@ -627,6 +613,85 @@ def get_order_details(order_id):
 
     else:
         return jsonify({"message": "Unauthorized. Only customers or restaurant owners can view order details"}), 403
+
+@app.route("/update_order_status/<int:order_id>", methods=["PATCH"])
+@jwt_required()
+def update_order_status(order_id):
+    current_user = get_jwt_identity()
+    
+    restaurant = Restaurant.query.filter_by(user_id=current_user["id"]).first()
+    if not restaurant:
+        return jsonify({"message": "Unauthorized. Only restaurant owners can update order status"}), 403
+
+    order = Order.query.filter_by(id=order_id, restaurant_id=restaurant.id).first()
+    if not order:
+        return jsonify({"message": "Order not found"}), 404
+
+
+    new_status = request.json.get("status")
+    valid_statuses = ["confirmed", "declined", "completed"]
+
+
+    if not new_status or new_status not in valid_statuses:
+        return jsonify({
+            "message": "Invalid status. Allowed statuses: 'confirmed', 'declined', 'completed'"
+        }), 400
+
+
+    if order.status == "pending" and new_status in ["confirmed", "declined"]:
+        # handle the case where the order is rejected
+        if new_status == "declined":
+            try:
+        
+                customer = Customer.query.filter_by(id=order.customer_id).first()
+                if not customer:
+                    return jsonify({"message": "Customer not found"}), 404
+
+                lieferspatz = Lieferspatz.query.first()
+                if not lieferspatz:
+                    return jsonify({"message": "Lieferspatz account not found"}), 404
+
+                refund_to_customer = round(order.total_price, 2)
+                deduction_from_restaurant = round(order.total_price * 0.85, 2)
+                deduction_from_lieferspatz = round(order.total_price * 0.15, 2)
+
+                customer.account_balance += refund_to_customer
+                restaurant.account_balance -= deduction_from_restaurant
+                lieferspatz.balance -= deduction_from_lieferspatz
+
+                # set the order status to declined
+                order.status = new_status
+                db.session.commit()
+
+                return jsonify({
+                    "message": "Order rejected successfully and balance refunded to the customer",
+                    "order": order.to_json()
+                }), 200
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({"message": str(e)}), 500
+
+        # handle the case where the order is confirmed
+        elif new_status == "confirmed":
+            order.status = new_status
+
+    elif order.status == "confirmed" and new_status == "completed":
+        order.status = new_status
+    else:
+        return jsonify({
+            "message": "Invalid status transition"
+        }), 400
+
+    try:
+        # commit the change to the database
+        db.session.commit()
+        return jsonify({
+            "message": "Order status updated successfully",
+            "order": order.to_json()
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": str(e)}), 500
 
 @app.route("/menu", methods=["GET"])
 @jwt_required()
@@ -883,6 +948,22 @@ def restaurant_notifications():
     ).all()
     
     return jsonify([order.to_json() for order in orders]), 200
+
+
+#liefer
+@app.route("/lieferspatz_balance", methods=["GET"])
+@jwt_required()
+def get_lieferspatz_balance():
+    # Assuming Lieferspatz has only one record
+    lieferspatz = Lieferspatz.query.first()
+
+    if not lieferspatz:
+        lieferspatz = Lieferspatz(balance=0)  # Create a new Lieferspatz record if it doesn't exist
+        db.session.add(lieferspatz)
+        db.session.commit()
+
+    return jsonify({"balance": lieferspatz.balance}), 200
+
 
 if __name__ == "__main__":
     with app.app_context():

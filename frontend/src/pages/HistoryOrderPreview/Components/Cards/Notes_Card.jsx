@@ -1,15 +1,12 @@
 import './history-cards.css';
 import { PropTypes } from "prop-types";
 
-function NotesCard(props){
+function NotesCard({note}){
     return(
         <div className='card'>
-            <p className='notes-text'> Additional Notes: {props.notes} </p>
+            <p className='notes-text'> Additional Notes: {note} </p>
         </div>
     );
 }
 
-NotesCard.propTypes = {
-    notes: PropTypes.string,
-}
 export default NotesCard;

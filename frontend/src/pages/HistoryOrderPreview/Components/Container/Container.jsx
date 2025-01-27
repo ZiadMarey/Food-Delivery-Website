@@ -9,7 +9,7 @@ import './history-container.css';
 function Container() {
     // Access the order data from context
     const orderData = useContext(UserContext);
-    const { restaurantName, items, totalPrice } = orderData;
+    const { restaurantName, items, totalPrice, note } = orderData;
 
     // State to hold the user type (e.g., 'customer' or 'restaurant')
     const [userType, setUserType] = useState(null);
@@ -21,7 +21,7 @@ function Container() {
                 const response = await fetch("http://127.0.0.1:5000/get-user-type", {
                     method: "GET",
                     headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`, // Include the JWT token
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`, 
                         "Content-Type": "application/json",
                     },
                 });
@@ -31,7 +31,7 @@ function Container() {
                 }
 
                 const data = await response.json();
-                setUserType(data.userType); // Store user type in state
+                setUserType(data.userType); 
             } catch (error) {
                 console.error("Error fetching user type:", error);
             }
@@ -63,7 +63,7 @@ function Container() {
                 />
             ))}
 
-            <NotesCard />
+            <NotesCard note={note}/>
             <TotalCard total={totalPrice} /> {/* Pass total price to TotalCard */}
 
             {/* Conditionally render the return button based on the user type */}

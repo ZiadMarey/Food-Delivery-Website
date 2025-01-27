@@ -60,6 +60,7 @@ function HomePage() {
               restID={restaurant.id}
               restName={restaurant.restaurantName}
               restDescription={restaurant.description}
+              restType={restaurant.restaurantType}
               openHours={restaurant.openingHours[0]?.openingTime || "N/A"}
               closeHours={restaurant.openingHours[0]?.closingTime || "N/A"}
             />
