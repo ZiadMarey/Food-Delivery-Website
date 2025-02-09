@@ -64,7 +64,7 @@ function RestOrderCard({ orderID, restaurantName, orderDate, status, totalPrice 
                 {orderStatus === "confirmed" && (
                     <>
                         <button
-                            className="confirm"
+                            className="confirm1"
                             onClick={() => updateOrderStatus("completed")}
                             disabled={isLoading}
                         >

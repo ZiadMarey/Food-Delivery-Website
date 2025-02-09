@@ -1,3 +1,7 @@
+body{
+    background-color: aliceblue;
+}
+
 .signup-restaurant-page{
     justify-self: center;
     justify-content: center;
@@ -5,7 +9,7 @@
     height: 83vh;
     margin-top: 30px;
     font-family: 'Poppins', sans-serif;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: aliceblue;
 }
 
 .error-message-res {
@@ -22,12 +26,12 @@
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    width: 500px;
     position: relative;
     
     background-color: rgba(255, 255, 255, 0.8);
     max-width: 500px;
-    height: 68vh;
+    height: 77vh;
     }
 
 .signin-text-sr{

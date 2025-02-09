@@ -1,3 +1,7 @@
+body{
+    background-color: aliceblue;
+}
+
 .details-restaurant-page{
     display: flex;
     justify-content: center;
@@ -5,7 +9,7 @@
     height: 87vh;
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #f5f5f5;
+    background-color: aliceblue;
 }
 
 

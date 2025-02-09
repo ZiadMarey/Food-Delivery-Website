@@ -25,6 +25,8 @@
 .food-price{
     font-size: 20px;
     color: #000000;
+    position: absolute;
+    left: 50%;
 }
 
 .item-price1{

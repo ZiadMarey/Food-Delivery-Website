@@ -43,7 +43,7 @@ function MainHeader() {
     return (
         <div className="mainHeader">
             <div className='logo-container'>
-                <Link to="/homepage" className="header-elements logo-container">
+                <Link to={userType == 'restaurant' ? '/restprofile' : "/homepage"} className="header-elements logo-container">
                     <img src={LogoPlaceholder} alt="Website-Logo" className="header-elements website-logo" />
                     <h2 className="header-elements header-restaurant-name website-name">Lieferspatz</h2>
                 </Link>
@@ -51,7 +51,7 @@ function MainHeader() {
 
             <div className="right-icons">
                 <div className="icon-container">
-                    <Link to="/userorderhist" className="header-elements">
+                    <Link to={userType == 'restaurant' ? '/restorders' : "/userorderhist"} className="header-elements">
                         <img src={HistoryIcon} alt="Purchase History" className="header-icons history-icon" />
                         <p className="header-elements icon-text">Order History</p>
                     </Link>

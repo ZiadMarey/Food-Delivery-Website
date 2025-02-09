@@ -16,7 +16,7 @@
     margin-bottom: 10%;
   }
 
-  .return-button{
+  .return-button1{
     background-color: rgb(255, 242, 197);
     height: 97px;
     width: 30%;
@@ -32,9 +32,10 @@
     text-decoration: none;
     text-align: center;
     justify-content: center;
+    
 }
 
-.return-button:hover{
+.return-button1:hover{
     background-color: #e18256;
     cursor: pointer;
 }

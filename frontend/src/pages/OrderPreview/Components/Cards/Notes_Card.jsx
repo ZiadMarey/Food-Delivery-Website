@@ -14,7 +14,7 @@ function NotesCard({note, setNote}){
                 value={note}
                 onChange={handleInputChange}
                 placeholder="Enter your notes here"
-                className="notes-input"
+                className="notes-input1"
             />
         </div>
     );

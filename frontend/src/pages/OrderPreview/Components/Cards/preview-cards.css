@@ -84,26 +84,26 @@ body{
     margin-top: 4%;
 }
 
-.notes-input {
-    width: 70%; 
+input[type="text"].notes-input1{
+    width: 100% ; 
     margin: 0px auto; 
     display: block; 
     padding: 10px; 
     font-size: 18px;
     border: 1px solid #fca975; 
-    border-radius: 8px; 
+    border-radius: 0 0 15px 15px; 
     box-shadow: inset 0 1px 3px hsla(0, 0%, 0%, 0.2);
-    background-color: #fca975;
+    background-color: #fca975 ;
     color: rgb(0, 96, 79);
 }
 
-.notes-input::placeholder {
-    color: rgb(0, 96, 79); /* Match the placeholder text color */
-    opacity: 0.7; /* Slightly lighter to differentiate from user input */
+input[type="text"].notes-input1.notes-input1::placeholder{
+    color: rgb(0, 96, 79); 
+    opacity: 0.7; 
 }
 
-.notes-input:focus {
+input[type="text"].notes-input1.notes-input1:focus {
     outline: none;
-    border-color: rgb(0, 96, 79); /* Highlight the field with a subtle color when focused */
-    box-shadow: 0 0 5px rgb(0, 96, 79); /* Add a light glow effect */
+    border-color: rgb(0, 96, 79); 
+    box-shadow: 0 0 5px rgb(0, 96, 79); 
 }

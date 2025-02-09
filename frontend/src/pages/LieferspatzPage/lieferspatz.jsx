@@ -1,6 +1,6 @@
 import "./lieferspatz.css";
 import Logo from "./assets/logoPlaceHolder.png";
-import MainHeader from "../../Componenets/New_Header/new-header";
+import MainHeader from "../../Componenets/New_Header/new-header.jsx";
 import { useState, useEffect } from 'react';
 
 function LiferspatzPage() {
@@ -30,7 +30,7 @@ function LiferspatzPage() {
 
     return (
         <>
-        <MainHeader></MainHeader>
+        <MainHeader/>
         <div className="page-div">
             <img src={Logo} alt="Lieferspatz's Logo" className="page-logo" />
             <div className="info-section">

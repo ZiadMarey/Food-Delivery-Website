@@ -1,21 +1,23 @@
-/* General container padding to prevent touching borders */
+body{
+    background-color: aliceblue;
+}
 .Menu.Container {
-    padding: 20px; /* Add padding around the container */
+    padding: 20px; 
 }
 
-/* Header and button container styling */
+
 .header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px; /* Add space below the header */
+    margin-bottom: 20px; 
     background-color: rgb(255, 242, 197);
     width: 98%;
     justify-self: center;
     
 }
 
-/* Ensure h1 and button have no extra margins */
+
 .header-container h1 {
     margin: 0;
     position: relative;
@@ -41,11 +43,11 @@
 
 .new-item-button1 {
     margin-left: 10px;
-    padding: 10px 15px; /* Add padding inside the button */
-    border: none; /* Optional: Remove default button border */
-    background-color: rgb(40, 94, 80); /* Add color to make it appealing */
-    color: white; /* White text for contrast */
-    border-radius: 5px; /* Slight rounded corners */
+    padding: 10px 15px;
+    border: none; 
+    background-color: rgb(40, 94, 80); 
+    color: white;
+    border-radius: 5px;
     cursor: pointer;
     width: 10%;
     height: 50px;
@@ -55,5 +57,5 @@
 }
 
 .new-item-button:hover {
-    background-color:rgb(29, 68, 57); /* Change color on hover */
+    background-color:rgb(29, 68, 57);
 }
