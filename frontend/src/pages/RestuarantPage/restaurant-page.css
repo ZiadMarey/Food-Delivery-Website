@@ -1,4 +1,6 @@
-
+body{
+  background-color: aliceblue;
+}
 .restaurant-label {
     position: relative;
     width: 100%;

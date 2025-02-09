@@ -4,7 +4,7 @@ function AddCard({address}){
     return(
     <div className="profile-box">
     <span className="profile-label">Address</span>
-    <div className="profile-value">{address}</div>
+    <div className="profile-value1">{address}</div>
     </div>
   );
 }

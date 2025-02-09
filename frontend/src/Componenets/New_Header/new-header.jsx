@@ -43,7 +43,7 @@ function MainHeader() {
     return (
         <div className="mainHeader">
             <div className='logo-container'>
-                <Link to="/homepage" className="header-elements logo-container">
+                <Link to={userType == 'restaurant' ? '/restprofile' : "/homepage"} className="header-elements logo-container">
                     <img src={LogoPlaceholder} alt="Website-Logo" className="header-elements website-logo" />
                     <h2 className="header-elements header-restaurant-name website-name">Lieferspatz</h2>
                 </Link>

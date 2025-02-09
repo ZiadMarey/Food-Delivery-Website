@@ -1,3 +1,7 @@
+body{
+    background-color: aliceblue;
+}
+
 .signup-customer-page{
     justify-self: center;
     justify-content: center;
@@ -5,7 +9,7 @@
     height: 83vh;
     margin-top: 30px;
     font-family: 'Poppins', sans-serif;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: aliceblue;
 
 }
 .error-message {
