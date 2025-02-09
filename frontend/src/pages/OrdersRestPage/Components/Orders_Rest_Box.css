@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
+    padding: 15px 0 15px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
  }
@@ -17,7 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 87%;
   }
   
   .card-details {
@@ -40,12 +40,16 @@
     text-decoration: underline;
     color: #0361c5;
     cursor: pointer;
+    width: 70%;
+    padding: unset 0 unset 0;
   }
 
   .customer-profile-details{
     position: absolute;
-    top: 46.5%;
-    left: 30%;
+    top: 44%;
+    left: 28%;
+    width: 30%;
+    padding: unset 0 unset 0;
   }
 
 
@@ -78,8 +82,7 @@
     cursor: pointer;
     width: 100px;
     box-sizing: border-box;
-
-
+    box-shadow: 0 2px 3px 0 black ;
 }
 
 .confirm {
@@ -88,6 +91,26 @@
 
 .reject {
     background-color: #ff6257; 
+}
+.reject:hover{
+  background-color: #f15e54; 
+}
+.confirm1{
+  display: inline-block;
+  font-size: 19px;
+  padding: 5px 15px;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #4e2020; 
+  cursor: pointer;
+  width: 150px;
+  box-sizing: border-box;
+  background-color: #eaa12b;
+  box-shadow: 0 3px 5px 0 black ;
+}
+.confirm1:hover, .confirm:hover{
+  background-color: #ffaf2e; 
 }
   
  

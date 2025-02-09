@@ -66,7 +66,7 @@ function RestOrderContainer (){
             return <div className="error">Error: {error}</div>;
         }
     
-        const containerHeight = orders.length > 1 ? orders.length * 21.5 + 60 : 81.5;
+        const containerHeight = orders.length > 1 ? (orders.length-1) : 1;
 
     ; 
     //this line records the number of cards present above 1, because 1 is the default amount of cards in the container
@@ -90,7 +90,7 @@ function RestOrderContainer (){
             
 
 
-            <Link to ="/restprofile" className='return-button'>
+            <Link to ="/restprofile" className='return-button2'>
                 <p className='reutn-text'>Return</p>
             </Link>
         </div>

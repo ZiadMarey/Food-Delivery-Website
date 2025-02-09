@@ -25,12 +25,30 @@ function Container (){
                 }
 
                 const data = await response.json();
-                setOrders(data.orders); // Assuming the response is { orders: [...] }
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
+                
+                // Sorting logic: pending on top, then confirmed, then completed/declined, newest to oldest
+                const sortedOrders = data.orders.sort((a, b) => {
+                    const statusOrder = {
+                        pending: 1,
+                        completed: 2,
+                        declined: 3,
+                    };
+
+                    // First, sort by status
+                    if (statusOrder[a.status] !== statusOrder[b.status]) {
+                        return statusOrder[a.status] - statusOrder[b.status];
+                    }
+
+                    // If statuses are the same, sort by creation date (newest to oldest)
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                });
+
+                setOrders(sortedOrders);
+                } catch (err) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
         };
 
         fetchOrders();
@@ -44,7 +62,7 @@ function Container (){
         return <div className="error">Error: {error}</div>;
     }
 
-    const containerHeight = orders.length > 1 ? orders.length * 21.5 + 60 : 81.5;
+    const containerHeight = orders.length > 1 ? (orders.length-1) : 1;
 
     return(
         <div className='container' style= {{
@@ -63,7 +81,7 @@ function Container (){
                 />
             ))}
 
-            <Link to ="/homepage" className='return-button'>
+            <Link to ="/homepage" className='return-button1'>
                 <p className='reutn-text'>Return</p>
             </Link>
         </div>

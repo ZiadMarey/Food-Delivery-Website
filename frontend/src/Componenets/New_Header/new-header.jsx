@@ -51,7 +51,7 @@ function MainHeader() {
 
             <div className="right-icons">
                 <div className="icon-container">
-                    <Link to="/userorderhist" className="header-elements">
+                    <Link to={userType == 'restaurant' ? '/restorders' : "/userorderhist"} className="header-elements">
                         <img src={HistoryIcon} alt="Purchase History" className="header-icons history-icon" />
                         <p className="header-elements icon-text">Order History</p>
                     </Link>
